@@ -28,7 +28,7 @@ class _SignUpState extends State<SignUp> {
                 height: double.infinity,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.orange[700],
+                  color: Color.fromARGB(255, 153, 0, 0),
                 ),
               ),
               clipper: CustomClipPath(),
@@ -48,9 +48,9 @@ class _SignUpState extends State<SignUp> {
                         },
                         child: Row(
                           children: <Widget>[
-                            Icon(Icons.arrow_back_ios),
+                            Icon(Icons.arrow_back_ios, color: Colors.white),
                             SizedBox(width: 5),
-                            Text('Back'),
+                            Text('Back', style: TextStyle(color: Colors.white)),
                           ],
                         )),
                     SizedBox(height: 10),
@@ -111,7 +111,7 @@ class _SignUpState extends State<SignUp> {
                                       // icon: Icon(Icons.person, color: Colors.red),
                                       fillColor: Colors.grey[700],
                                       hintText: 'your Password',
-                                      labelText: 'PassWord',
+                                      labelText: 'Password',
                                       labelStyle:
                                           TextStyle(color: Colors.white)),
                                   validator: (String value) {
@@ -134,7 +134,7 @@ class _SignUpState extends State<SignUp> {
                                       // icon: Icon(Icons.person, color: Colors.red),
                                       fillColor: Colors.grey[700],
                                       hintText: 'confirm Password',
-                                      labelText: 're-PassWord',
+                                      labelText: 'Re-Password',
                                       labelStyle:
                                           TextStyle(color: Colors.white)),
                                   validator: (String value) {
@@ -157,7 +157,7 @@ class _SignUpState extends State<SignUp> {
                                       // icon: Icon(Icons.phone, color: Colors.red),
                                       fillColor: Colors.grey[700],
                                       hintText: 'your number',
-                                      labelText: 'Phone Number',
+                                      labelText: 'Phone number',
                                       labelStyle:
                                           TextStyle(color: Colors.white),
                                       prefixText: '+256 '),
@@ -199,7 +199,7 @@ class _SignUpState extends State<SignUp> {
                                 ),
                                 SizedBox(height: 20.0),
                                 RaisedButton(
-                                  color: Color.fromARGB(255, 0, 77, 128),
+                                  color: Colors.blueGrey,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20)),
                                   padding: EdgeInsets.symmetric(horizontal: 40),
@@ -215,7 +215,7 @@ class _SignUpState extends State<SignUp> {
                                           builder: (context) => MyHomePage()),
                                     );
                                   },
-                                  child: Text('Sign up'),
+                                  child: Text('Sign up',style: TextStyle(color: Colors.white),),
                                 ),
                               ],
                             ),
