@@ -14,7 +14,7 @@ class MyHomePage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          child: Column(
+          child: ListView(
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(top: 8.0, bottom: 8),
@@ -67,13 +67,7 @@ class MyHomePage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    ButtonLink(
-                      text: 'Admins',
-                      ontap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Admins()));
-                      },
-                    ),
+                    
                     ButtonLink(
                       text: 'Users',
                       ontap: () {

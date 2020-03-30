@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import './signup.dart';
 import '../widgets/clippath.dart';
 import 'home.dart';
 
@@ -131,29 +130,12 @@ class _LogInState extends State<LogIn> {
                                   child: Text('Login',style: TextStyle(color: Colors.white),),
                                 ),
                                 SizedBox(height: 15),
-                                Row(
-                                  children: <Widget>[
-                                    Text(
-                                      'Don\'t have an Account? ',
+                                Text(
+                                      'Forgot your password? ',
                                       style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey[700]),
+                                          fontSize: 14,
+                                          color: Colors.grey[800]),
                                     ),
-                                    // SizedBox(width: 4),
-                                    FlatButton(
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => SignUp()),
-                                          );
-                                        },
-                                        child: Text(
-                                          'sign up',
-                                          style: TextStyle(fontSize: 17),
-                                        )),
-                                  ],
-                                )
                               ],
                             ),
                           ),
