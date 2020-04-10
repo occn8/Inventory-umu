@@ -34,7 +34,7 @@ class MyHomePage extends StatelessWidget {
                             fontSize: 18, fontWeight: FontWeight.w400))),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(15.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -52,13 +52,7 @@ class MyHomePage extends StatelessWidget {
                             MaterialPageRoute(builder: (context) => InvMgt()));
                       },
                     ),
-                    ButtonLink(
-                      text: 'Scan',
-                      ontap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => BarCode()));
-                      },
-                    ),
+                    
                   ],
                 ),
               ),

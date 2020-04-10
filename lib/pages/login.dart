@@ -25,7 +25,7 @@ class _LogInState extends State<LogIn> {
                 height: double.infinity,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255,153, 0, 0),
+                  color: Color.fromARGB(255, 153, 0, 0),
                 ),
               ),
               clipper: CustomClipPath(),
@@ -65,6 +65,7 @@ class _LogInState extends State<LogIn> {
                                   height: 10.0,
                                 ),
                                 TextFormField(
+                                  style: TextStyle(color: Colors.white),
                                   textCapitalization: TextCapitalization.words,
                                   decoration: InputDecoration(
                                       border: OutlineInputBorder(
@@ -75,6 +76,7 @@ class _LogInState extends State<LogIn> {
                                       // icon: Icon(Icons.person, color: Colors.red),
                                       fillColor: Colors.grey[700],
                                       hintText: 'your name',
+                                      hintStyle: TextStyle(color: Colors.white),
                                       labelText: 'Name',
                                       labelStyle:
                                           TextStyle(color: Colors.white)),
@@ -89,6 +91,7 @@ class _LogInState extends State<LogIn> {
                                 ),
                                 SizedBox(height: 30.0),
                                 TextFormField(
+                                  style: TextStyle(color: Colors.white),
                                   textCapitalization: TextCapitalization.words,
                                   obscureText: true,
                                   decoration: InputDecoration(
@@ -97,6 +100,7 @@ class _LogInState extends State<LogIn> {
                                     // icon: Icon(Icons.person, color: Colors.red),
                                     fillColor: Colors.grey[700],
                                     hintText: 'your Password',
+                                    hintStyle: TextStyle(color: Colors.white),
                                     labelText: 'Password',
                                     labelStyle: TextStyle(color: Colors.white),
                                   ),
@@ -121,21 +125,23 @@ class _LogInState extends State<LogIn> {
                                     }
                                     _formKey.currentState.save();
                                     print('logged in');
-                                    Navigator.push(
+                                    Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => MyHomePage()),
                                     );
                                   },
-                                  child: Text('Login',style: TextStyle(color: Colors.white),),
+                                  child: Text(
+                                    'Login',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                                 ),
                                 SizedBox(height: 15),
                                 Text(
-                                      'Forgot your password? ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.grey[800]),
-                                    ),
+                                  'Forgot your password? ',
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.grey[800]),
+                                ),
                               ],
                             ),
                           ),

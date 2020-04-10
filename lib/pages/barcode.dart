@@ -36,104 +36,117 @@ class _InvDetailsState extends State<InvDetails> {
       onWillPop: () {
         moveToLastScreen();
       },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Center(child: Text(appBarTitle)),
-          leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                moveToLastScreen();
-              }),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.only(left: 8.0, right: 8, top: 10),
-          child: ListView(
-            children: <Widget>[
-              ListTile(
-                title: DropdownButton(
-                    items: _priorities.map((String dropDownStringItem) {
-                      return DropdownMenuItem<String>(
-                        child: Text(dropDownStringItem),
-                        value: dropDownStringItem,
-                      );
-                    }).toList(),
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Center(child: Text(appBarTitle)),
+            leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  moveToLastScreen();
+                }),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.only(left: 8.0, right: 8, top: 10),
+            child: ListView(
+              children: <Widget>[
+                ListTile(
+                  title: DropdownButton(
+                      items: _priorities.map((String dropDownStringItem) {
+                        return DropdownMenuItem<String>(
+                          child: Text(dropDownStringItem),
+                          value: dropDownStringItem,
+                        );
+                      }).toList(),
+                      style: textStyle,
+                      value: getPriorityAsString(product.priority),
+                      onChanged: (valueSelectedByUser) {
+                        setState(() {
+                          print(valueSelectedByUser);
+                          updatePriorityAsInt(valueSelectedByUser);
+                        });
+                      }),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: TextField(
+                    controller: titleController,
                     style: textStyle,
-                    value: getPriorityAsString(product.priority),
-                    onChanged: (valueSelectedByUser) {
-                      setState(() {
-                        print(valueSelectedByUser);
-                        updatePriorityAsInt(valueSelectedByUser);
-                      });
-                    }),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 15),
-                child: TextField(
-                  controller: titleController,
-                  style: textStyle,
-                  onChanged: (value) {
-                    updateTitle();
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'title',
-                    labelStyle: textStyle,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5)),
+                    onChanged: (value) {
+                      updateTitle();
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Product Name',
+                      labelStyle: textStyle,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 15),
-                child: TextField(
-                  controller: descriptionController,
-                  style: textStyle,
-                  onChanged: (value) {
-                    updateDescription();
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'Description',
-                    labelStyle: textStyle,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5)),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: TextField(
+                    maxLines: 4,
+                    controller: descriptionController,
+                    style: textStyle,
+                    onChanged: (value) {
+                      updateDescription();
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Description',
+                      labelStyle: textStyle,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: RaisedButton(
-                            color: Theme.of(context).primaryColor,
-                            child: Text(
-                              'Save',
-                              textScaleFactor: 1.5,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _save();
-                              });
-                            }),
+                Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                    child: RaisedButton(
+                      onPressed: (){},
+                      child: Text(
+                        'Scan Product',
+                        style: TextStyle(color: Colors.black),
                       ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Expanded(
-                        child: RaisedButton(
-                            color: Theme.of(context).primaryColor,
-                            child: Text(
-                              'Delete',
-                              textScaleFactor: 1.5,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _delete();
-                              });
-                            }),
-                      )
-                    ],
-                  )),
-            ],
+                    )),
+                Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: RaisedButton(
+                              color: Theme.of(context).primaryColor,
+                              child: Text(
+                                'Save',
+                                textScaleFactor: 1.5,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _save();
+                                });
+                              }),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Expanded(
+                          child: RaisedButton(
+                              color: Theme.of(context).primaryColor,
+                              child: Text(
+                                'Delete',
+                                textScaleFactor: 1.5,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _delete();
+                                });
+                              }),
+                        )
+                      ],
+                    )),
+              ],
+            ),
           ),
         ),
       ),
@@ -192,7 +205,7 @@ class _InvDetailsState extends State<InvDetails> {
     }
   }
 
-   _showSnackBar(BuildContext context, String message) {
+  _showSnackBar(BuildContext context, String message) {
     final snackBar = SnackBar(content: Text(message));
     Scaffold.of(context).showSnackBar(snackBar);
   }
@@ -201,14 +214,14 @@ class _InvDetailsState extends State<InvDetails> {
     moveToLastScreen();
 
     if (product.id != null) {
-      _showAlartDialog('status', 'no Note  deleted');
+      _showAlartDialog('status', 'no product  deleted');
       return;
     }
     int result = await helper.deleteNote(product.id);
     if (result != 0) {
-      _showAlartDialog('status', 'Note deleted successfully');
+      _showAlartDialog('status', 'product deleted successfully');
     } else {
-      _showAlartDialog('status', 'Error occured deleting note');
+      _showAlartDialog('status', 'Error occured deleting product');
     }
   }
 
@@ -220,6 +233,9 @@ class _InvDetailsState extends State<InvDetails> {
     showDialog(context: context, builder: (_) => alartDialog);
   }
 }
+
+
+//scanner
 
 class BarCode extends StatefulWidget {
   @override
