@@ -1,6 +1,8 @@
 import 'package:curve4/pages/login.dart';
 import 'package:flutter/material.dart';
 
+import 'pages/home.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -11,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LogIn(),
+      home: MyHomePage(),
     );
   }
 }

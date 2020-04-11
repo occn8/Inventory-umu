@@ -6,7 +6,7 @@ import '../models/products.dart';
 import '../utils/dbhelper.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'barcode.dart';
+import 'add.dart';
 
 class InvMgt extends StatefulWidget {
   @override
@@ -32,7 +32,7 @@ class _InvMgtState extends State<InvMgt> {
       body: getNoteListView(),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          navigateToDetail(Products('', '', 2), 'Add note');
+          navigateToDetail(Products('', '', 2), 'Add Item');
         },
         label: Text("Add"),
             icon: Icon(Icons.add),
@@ -65,7 +65,7 @@ class _InvMgtState extends State<InvMgt> {
                   onTap: () => _delete(context, productList[position]),
                   child: Icon(Icons.delete, color: Colors.grey)),
               onTap: () {
-                navigateToDetail(this.productList[position], 'Edit note');
+                navigateToDetail(this.productList[position], 'Edit Item');
               },
             ),
           );
@@ -101,7 +101,7 @@ class _InvMgtState extends State<InvMgt> {
   void _delete(BuildContext context, Products note) async {
     int result = await dataBaseHelper.deleteNote(note.id);
     if (result != 0) {
-      _showSnackBar(context, 'Note deleted successfully');
+      _showSnackBar(context, 'Item deleted successfully');
       updateListView();
     }
   }
