@@ -11,12 +11,12 @@ class MenuItem extends StatelessWidget {
     return GestureDetector(
       onTap: ontap,
           child: Padding(
-        padding: const EdgeInsets.all(5),
+        padding: const EdgeInsets.all(10),
         child: Row(
           children: <Widget>[
             Icon(
               icon,
-              color: Colors.cyan,
+              color: Colors.white,
               size: 25,
             ),
             SizedBox(width: 20),

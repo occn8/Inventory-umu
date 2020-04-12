@@ -128,7 +128,7 @@ class _LogInState extends State<LogIn> {
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => MyHomePage()),
+                                          builder: (context) => InvMgt()),
                                     );
                                   },
                                   child: Text(

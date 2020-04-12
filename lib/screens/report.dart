@@ -4,8 +4,11 @@ class Report extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          body: Container(
-         child: Text('Report'),
+      appBar: AppBar(
+        title: Text('Users'),centerTitle: true,
+      ),
+      body: Container(
+        child: Text('Report'),
       ),
     );
   }

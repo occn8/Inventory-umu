@@ -37,7 +37,8 @@ class _InvDetailsState extends State<InvDetails> {
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
           appBar: AppBar(
-            title: Center(child: Text(appBarTitle)),
+            title: Text(appBarTitle),
+            centerTitle: true,
             leading: IconButton(
                 icon: Icon(Icons.arrow_back),
                 onPressed: () {
@@ -49,7 +50,10 @@ class _InvDetailsState extends State<InvDetails> {
             child: ListView(
               children: <Widget>[
                 ListTile(
-                  leading: Text('Item Status: '),
+                  leading: Text(
+                    'Item Status: ',
+                    style: TextStyle(fontSize: 15),
+                  ),
                   title: DropdownButton(
                       items: _priorities.map((String dropDownStringItem) {
                         return DropdownMenuItem<String>(
@@ -76,8 +80,8 @@ class _InvDetailsState extends State<InvDetails> {
                     decoration: InputDecoration(
                       labelText: 'Product Name',
                       labelStyle: textStyle,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5)),
+                      // border: OutlineInputBorder(
+                      //     borderRadius: BorderRadius.circular(5)),
                     ),
                   ),
                 ),
@@ -99,23 +103,29 @@ class _InvDetailsState extends State<InvDetails> {
                   ),
                 ),
                 Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5),
+                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 50),
                     child: RaisedButton(
-                      onPressed: (){},
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      onPressed: () {},
                       child: Text(
-                        'Scan Product',
+                        'Scan Item',
                         style: TextStyle(color: Colors.black),
                       ),
                     )),
                 Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     child: Row(
                       children: <Widget>[
                         Expanded(
                           child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
                               color: Theme.of(context).primaryColor,
                               child: Text(
                                 'Save',
+                                style: TextStyle(color: Colors.white),
                                 textScaleFactor: 1.5,
                               ),
                               onPressed: () {
@@ -124,14 +134,15 @@ class _InvDetailsState extends State<InvDetails> {
                                 });
                               }),
                         ),
-                        SizedBox(
-                          width: 5,
-                        ),
+                        SizedBox(width: 5),
                         Expanded(
                           child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
                               color: Theme.of(context).primaryColor,
                               child: Text(
                                 'Cancel',
+                                style: TextStyle(color: Colors.white),
                                 textScaleFactor: 1.5,
                               ),
                               onPressed: () {
@@ -230,4 +241,3 @@ class _InvDetailsState extends State<InvDetails> {
     showDialog(context: context, builder: (_) => alartDialog);
   }
 }
-

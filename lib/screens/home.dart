@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:curve4/widgets/mydrawer.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import '../models/products.dart';
@@ -25,19 +26,30 @@ class _InvMgtState extends State<InvMgt> {
       updateListView();
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(child: Text('Inventory')),
-      ),
-      body: getNoteListView(),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          navigateToDetail(Products('', '', 2), 'Add Item');
-        },
-        label: Text("Add"),
-            icon: Icon(Icons.add),
-            backgroundColor: Theme.of(context).accentColor,
-            elevation: 4,
+    return SafeArea(
+          child: Scaffold(
+        appBar: AppBar(
+          leading: Builder(
+            builder: (context) => IconButton(
+              icon: new Icon(Icons.menu,
+                  color: Colors.white),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            ),
+          ),
+          title: Text('Inventory'),
+          centerTitle: true,
+        ),
+        body: getNoteListView(),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            navigateToDetail(Products('', '', 2), 'Add Item');
+          },
+          label: Text("Add"),
+          icon: Icon(Icons.add),
+          backgroundColor: Theme.of(context).accentColor,
+          elevation: 4,
+        ),
+        drawer: MyDrawer()
       ),
     );
   }
@@ -51,7 +63,7 @@ class _InvMgtState extends State<InvMgt> {
             color: Colors.white,
             elevation: 2,
             child: ListTile(
-              leading: CircleAvatar(
+              leading: CircleAvatar(radius: 28,
                 child: getPriorityIcon(this.productList[position].priority),
                 backgroundColor:
                     getPriorityColor(this.productList[position].priority),
@@ -60,7 +72,7 @@ class _InvMgtState extends State<InvMgt> {
                 this.productList[position].title,
                 style: titleStyle,
               ),
-              subtitle: Text(this.productList[position].date),
+              subtitle: Text(this.productList[position].date,style: TextStyle(fontSize: 11),),
               trailing: GestureDetector(
                   onTap: () => _delete(context, productList[position]),
                   child: Icon(Icons.delete, color: Colors.grey)),
