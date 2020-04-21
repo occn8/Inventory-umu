@@ -1,9 +1,7 @@
+import 'package:curve4/screens/Users.dart';
+import 'package:curve4/screens/home.dart';
+import 'package:curve4/screens/report.dart';
 import 'package:flutter/material.dart';
-
-import 'screens/Users.dart';
-import 'screens/home.dart';
-import 'screens/report.dart';
-
 
 void main() => runApp(MyApp());
 

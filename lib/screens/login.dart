@@ -1,5 +1,5 @@
+import 'package:curve4/utilities/clippath.dart';
 import 'package:flutter/material.dart';
-import '../widgets/clippath.dart';
 import 'home.dart';
 
 class LogIn extends StatefulWidget {

@@ -1,6 +1,5 @@
+import 'package:curve4/utilities/menuitems.dart';
 import 'package:flutter/material.dart';
-
-import 'menuitems.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -30,9 +29,11 @@ class MyDrawer extends StatelessWidget {
                     color: Colors.white,
                     fontSize: 25,
                     fontWeight: FontWeight.w800)),
-            leading: CircleAvatar(backgroundColor: Colors.white,
+            leading: CircleAvatar(
+              backgroundColor: Colors.white,
               child: Icon(
-                Icons.person,size: 34,
+                Icons.person,
+                size: 34,
                 color: Colors.blue,
               ),
               radius: 35,
@@ -45,12 +46,30 @@ class MyDrawer extends StatelessWidget {
             indent: 20,
             endIndent: 20,
           ),
-          MenuItem(
-            icon: Icons.home,
-            title: 'Home',
-            ontap: () {
-              Navigator.pop(context);
-            },
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.white70, borderRadius: BorderRadius.circular(20)),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  children: <Widget>[
+                    Icon(Icons.home, color: Colors.black, size: 25),
+                    SizedBox(width: 20),
+                    Text(
+                      'Home',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                          color: Colors.black),
+                    )
+                  ],
+                ),
+              ),
+            ),
           ),
           MenuItem(
             icon: Icons.rate_review,
