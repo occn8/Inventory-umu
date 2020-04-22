@@ -8,16 +8,16 @@ class Users {
   Users.withId(this._id, this._name, [this._password]);
 
   int get id => _id;
-  String get title => _name;
-  String get description => _password;
+  String get name => _name;
+  String get password => _password;
 
-  set title(String newTitle) {
+  set name(String newTitle) {
     if (newTitle.length <= 255) {
       this._name = newTitle;
     }
   }
 
-  set description(String newDescription) {
+  set password(String newDescription) {
     if (newDescription.length <= 255) {
       this._password = newDescription;
     }

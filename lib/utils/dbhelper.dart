@@ -47,10 +47,8 @@ class DataBaseHelper {
 
   void _createDb(Database db, int newVersion) async {
     await db.execute(
-      'CREATE TABLE $productTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT,$colDescription TEXT, $colPriority INTEGER, $colDate Text)',
-    );
-    await db.execute(
-      'CREATE TABLE $userTable($usrId INTEGER PRIMARY KEY AUTOINCREMENT, $usrName TEXT,$usrPassword TEXT',
+      // 'CREATE TABLE $productTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT,$colDescription TEXT, $colPriority INTEGER, $colDate Text)'
+      'CREATE TABLE $userTable($usrId INTEGER PRIMARY KEY AUTOINCREMENT, $usrName TEXT,$usrPassword TEXT)',
     );
   }
 

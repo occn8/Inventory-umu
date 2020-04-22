@@ -1,19 +1,19 @@
 import 'dart:ffi';
-import 'package:curve4/models/users.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
-import '../models/products.dart';
 import '../utils/dbhelper.dart';
+import '../models/users.dart';
 import 'dart:async';
-import 'package:sqflite/sqflite.dart';
 
-class Users extends StatefulWidget {
+import 'useradd.dart';
+
+class UsersP extends StatefulWidget {
   @override
   _UsersState createState() => _UsersState();
 }
 
-class _UsersState extends State<Users> {
- DataBaseHelper dataBaseHelper = DataBaseHelper();
+class _UsersState extends State<UsersP> {
+  DataBaseHelper dataBaseHelper2 = DataBaseHelper();
   List<Users> userList;
   int count = 0;
 
@@ -21,7 +21,7 @@ class _UsersState extends State<Users> {
   Widget build(BuildContext context) {
     if (userList == null) {
       userList = List<Users>();
-      // updateUserListView();
+      updateUserListView();
     }
 
     return SafeArea(
@@ -31,6 +31,15 @@ class _UsersState extends State<Users> {
           centerTitle: true,
         ),
         body: getUserListView(),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            navigateToDetail(Users('', ''), 'Add user');
+          },
+          label: Text("Add"),
+          icon: Icon(Icons.add),
+          backgroundColor: Theme.of(context).accentColor,
+          elevation: 4,
+        ),
       ),
     );
   }
@@ -51,21 +60,55 @@ class _UsersState extends State<Users> {
                 ),
                 backgroundColor: Colors.white,
               ),
-              title: Text('textx',
-                // this.productList[position].title,
+              title: Text(
+                this.userList[position].name,
                 style: titleStyle,
               ),
-              subtitle: Text('textx',
-                // this.productList[position].date,
+              subtitle: Text(
+                this.userList[position].password,
                 style: TextStyle(fontSize: 11),
               ),
               trailing: GestureDetector(
-                  // onTap: () => _delete(context, productList[position]),
+                  onTap: () => _delete(context, userList[position]),
                   child: Icon(Icons.delete, color: Colors.grey)),
-              
             ),
           );
         });
   }
-  
+
+  void _delete(BuildContext context, Users user) async {
+    int result = await dataBaseHelper2.deleteNote(user.id);
+    if (result != 0) {
+      _showSnackBar(context, 'Item deleted successfully');
+      updateUserListView();
+    }
+  }
+
+  Void _showSnackBar(BuildContext context, String message) {
+    final snackBar = SnackBar(content: Text(message));
+    Scaffold.of(context).showSnackBar(snackBar);
+  }
+
+  void navigateToDetail(Users user, String name) async {
+    bool result =
+        await Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return UserDetails(user, name);
+    }));
+    if (result == true) {
+      updateUserListView();
+    }
+  }
+
+  void updateUserListView() {
+    final Future<Database> DbFuture = dataBaseHelper2.initializeDatabase();
+    DbFuture.then((database) {
+      Future<List<Users>> userListFuture = dataBaseHelper2.getUserList();
+      userListFuture.then((userList) {
+        setState(() {
+          this.userList = userList;
+          this.count = userList.length;
+        });
+      });
+    });
+  }
 }
