@@ -58,24 +58,24 @@ class _UserDetailsState extends State<UserDetails> {
                       updateName();
                     },
                     decoration: InputDecoration(
-                      labelText: 'Product Name',
+                      labelText: 'User Name',
                       labelStyle: textStyle,
-                      // border: OutlineInputBorder(
-                      //     borderRadius: BorderRadius.circular(5)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5)),
                     ),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: TextField(
-                    maxLines: 4,
                     controller: passwordController,
+                    obscureText: true,
                     style: textStyle,
                     onChanged: (value) {
                       updatePassword();
                     },
                     decoration: InputDecoration(
-                      labelText: 'Description',
+                      labelText: 'Password',
                       labelStyle: textStyle,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5)),

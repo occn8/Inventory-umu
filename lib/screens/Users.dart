@@ -36,7 +36,7 @@ class _UsersState extends State<UsersP> {
             navigateToDetail(Users('', ''), 'Add user');
           },
           label: Text("Add"),
-          icon: Icon(Icons.add),
+          icon: Icon(Icons.person_add),
           backgroundColor: Theme.of(context).accentColor,
           elevation: 4,
         ),
@@ -49,30 +49,74 @@ class _UsersState extends State<UsersP> {
     return ListView.builder(
         itemCount: count,
         itemBuilder: (BuildContext context, int position) {
-          return Card(
-            color: Colors.white,
-            elevation: 2,
-            child: ListTile(
-              leading: CircleAvatar(
-                child: Icon(
-                  Icons.person,
-                  color: Theme.of(context).primaryColor,
+          // if(position.isOdd)return Divider();
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  child:
+                      Icon(Icons.person, color: Theme.of(context).primaryColor,size: 25),
                 ),
-                backgroundColor: Colors.white,
-              ),
-              title: Text(
-                this.userList[position].name,
-                style: titleStyle,
-              ),
-              subtitle: Text(
-                this.userList[position].password,
-                style: TextStyle(fontSize: 11),
-              ),
-              trailing: GestureDetector(
-                  onTap: () => _delete(context, userList[position]),
-                  child: Icon(Icons.delete, color: Colors.grey)),
+                Container(
+                  padding: EdgeInsets.all(5),
+                  width: MediaQuery.of(context).size.width*0.8,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.blue,
+                  ),
+                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      SizedBox(width: 20,),
+                      Column(
+                        children: <Widget>[
+                          Text(this.userList[position].name, style: titleStyle),
+                          Text(this.userList[position].password,
+                              style: TextStyle(fontSize: 11)),
+                        ],
+                      ),
+                      Spacer(),
+                      Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.orangeAccent,
+                  ),
+                  child: GestureDetector(
+                    onTap: () => _delete(context, userList[position]),
+                    child: Icon(Icons.delete, color: Colors.grey,size: 30,)),
+                ),
+                    ],
+                  ),
+                ),
+                
+              ],
             ),
           );
+          // return Card(
+          //   color: Colors.white,
+          //   elevation: 2,
+          //   child: ListTile(
+          //     leading: CircleAvatar(
+          //       child: Icon(
+          //         Icons.person,
+          //         color: Theme.of(context).primaryColor,
+          //       ),
+          //       backgroundColor: Colors.white,
+          //     ),
+          //     title: Text(
+          //       this.userList[position].name,
+          //       style: titleStyle,
+          //     ),
+          //     subtitle: Text(
+          //       this.userList[position].password,
+          //       style: TextStyle(fontSize: 11),
+          //     ),
+          //     trailing: GestureDetector(
+          //         onTap: () => _delete(context, userList[position]),
+          //         child: Icon(Icons.delete, color: Colors.grey)),
+          //   ),
+          // );
         });
   }
 
