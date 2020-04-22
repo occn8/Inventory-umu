@@ -1,5 +1,7 @@
+import 'package:curve4/screens/login.dart';
 import 'package:curve4/utilities/menuitems.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -98,9 +100,18 @@ class MyDrawer extends StatelessWidget {
             indent: 20,
             endIndent: 20,
           ),
-          MenuItem(
-            icon: Icons.exit_to_app,
-            title: 'Log Out',
+          InkWell(
+            onTap: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs.remove('key');
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (BuildContext ctx) => LogIn()));
+              print('logedout..');
+            },
+            child: MenuItem(
+              icon: Icons.exit_to_app,
+              title: 'Log Out',
+            ),
           ),
         ],
       ),

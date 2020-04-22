@@ -56,40 +56,59 @@ class _UsersState extends State<UsersP> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
-                  child:
-                      Icon(Icons.person, color: Theme.of(context).primaryColor,size: 25),
+                  child: Icon(Icons.person,
+                      color: Theme.of(context).primaryColor, size: 25),
                 ),
                 Container(
                   padding: EdgeInsets.all(5),
-                  width: MediaQuery.of(context).size.width*0.8,
+                  width: MediaQuery.of(context).size.width * 0.8,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.grey[300],
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black87,
+                        blurRadius: 4.0,
+                        offset: Offset(0.0, 4.0),
+                      )
+                    ],
                   ),
-                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      SizedBox(width: 20,),
+                      SizedBox(
+                        width: 30,
+                      ),
                       Column(
                         children: <Widget>[
                           Text(this.userList[position].name, style: titleStyle),
-                          Text(this.userList[position].password,
-                              style: TextStyle(fontSize: 11)),
+                          // Text(this.userList[position].password,
+                          //     style: TextStyle(fontSize: 11)),
+                          Row(
+                            children: <Widget>[
+                              Icon(Icons.more_horiz),
+                              Icon(Icons.more_horiz),
+                            ],
+                          )
                         ],
                       ),
                       Spacer(),
                       Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.orangeAccent,
-                  ),
-                  child: GestureDetector(
-                    onTap: () => _delete(context, userList[position]),
-                    child: Icon(Icons.delete, color: Colors.grey,size: 30,)),
-                ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.grey[200],
+                        ),
+                        child: GestureDetector(
+                            onTap: () => _delete(context, userList[position]),
+                            child: Icon(
+                              Icons.delete,
+                              color: Colors.redAccent,
+                              size: 30,
+                            )),
+                      ),
                     ],
                   ),
                 ),
-                
               ],
             ),
           );
@@ -121,9 +140,9 @@ class _UsersState extends State<UsersP> {
   }
 
   void _delete(BuildContext context, Users user) async {
-    int result = await dataBaseHelper2.deleteNote(user.id);
+    int result = await dataBaseHelper2.deleteUser(user.id);
     if (result != 0) {
-      _showSnackBar(context, 'Item deleted successfully');
+      _showSnackBar(context, 'user removed');
       updateUserListView();
     }
   }
