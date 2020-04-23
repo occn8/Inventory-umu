@@ -1,5 +1,6 @@
 import 'package:curve4/utilities/clippath.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'home.dart';
 
 class LogIn extends StatefulWidget {
@@ -11,6 +12,7 @@ class _LogInState extends State<LogIn> {
   String name;
   String password;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+   var _controler = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +67,7 @@ class _LogInState extends State<LogIn> {
                                   height: 10.0,
                                 ),
                                 TextFormField(
+                                  controller: _controler,
                                   style: TextStyle(color: Colors.white),
                                   textCapitalization: TextCapitalization.words,
                                   decoration: InputDecoration(
@@ -119,9 +122,16 @@ class _LogInState extends State<LogIn> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20)),
                                   padding: EdgeInsets.symmetric(horizontal: 40),
-                                  onPressed: () {
+                                  onPressed: () async {
                                     if (!_formKey.currentState.validate()) {
                                       return;
+                                    }
+                                    if (_formKey.currentState.validate()) {
+                                      SharedPreferences prefs =
+                                          await SharedPreferences.getInstance();
+                                      prefs.setString('loginkey', 'in');
+                                      print('saved pref');
+                                      _controler.clear();
                                     }
                                     _formKey.currentState.save();
                                     print('logged in');
