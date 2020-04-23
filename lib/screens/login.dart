@@ -3,16 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'home.dart';
 
+String name = '';
+String password = '';
+
 class LogIn extends StatefulWidget {
   @override
   _LogInState createState() => _LogInState();
 }
 
 class _LogInState extends State<LogIn> {
-  String name;
-  String password;
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-   var _controler = TextEditingController();
+  final _namecontroler = TextEditingController();
+  final _passcontroler = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +70,7 @@ class _LogInState extends State<LogIn> {
                                   height: 10.0,
                                 ),
                                 TextFormField(
-                                  controller: _controler,
+                                  controller: _namecontroler,
                                   style: TextStyle(color: Colors.white),
                                   textCapitalization: TextCapitalization.words,
                                   decoration: InputDecoration(
@@ -87,13 +90,18 @@ class _LogInState extends State<LogIn> {
                                     if (value.isEmpty) {
                                       return 'Name is required';
                                     }
+                                    setState(() {
+                                      name = _namecontroler.value.text;
+                                      // print(name);
+                                    });
                                   },
-                                  onSaved: (String value) {
-                                    this.name = value;
-                                  },
+                                  // onSaved: (String value) {
+                                  //   this.name = value;
+                                  // },
                                 ),
                                 SizedBox(height: 30.0),
                                 TextFormField(
+                                  controller: _passcontroler,
                                   style: TextStyle(color: Colors.white),
                                   textCapitalization: TextCapitalization.words,
                                   obscureText: true,
@@ -112,9 +120,9 @@ class _LogInState extends State<LogIn> {
                                       return 'Password is required';
                                     }
                                   },
-                                  onSaved: (String value) {
-                                    this.password = value;
-                                  },
+                                  // onSaved: (String value) {
+                                  //   this.password = value;
+                                  // },
                                 ),
                                 SizedBox(height: 20.0),
                                 RaisedButton(
@@ -129,9 +137,14 @@ class _LogInState extends State<LogIn> {
                                     if (_formKey.currentState.validate()) {
                                       SharedPreferences prefs =
                                           await SharedPreferences.getInstance();
-                                      prefs.setString('loginkey', 'in');
-                                      print('saved pref');
-                                      _controler.clear();
+                                      prefs.setString('key', 'in');
+                                      prefs.setString(
+                                          'name', _namecontroler.value.text);
+                                      var key = prefs.getString('key');
+                                      var name = prefs.getString('name');
+                                      print(key);
+                                      print(name);
+                                      _namecontroler.clear();
                                     }
                                     _formKey.currentState.save();
                                     print('logged in');

@@ -26,7 +26,7 @@ class MyDrawer extends StatelessWidget {
             endIndent: 20,
           ),
           ListTile(
-            title: Text('Kobbi',
+            title: Text(name,
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,
