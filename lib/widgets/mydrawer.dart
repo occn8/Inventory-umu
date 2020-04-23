@@ -1,9 +1,30 @@
+import 'dart:async';
+
 import 'package:curve4/screens/login.dart';
 import 'package:curve4/utilities/menuitems.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class MyDrawer extends StatelessWidget {
+Future<String> getName() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String name = prefs.getString('name');
+  return name;
+}
+
+class MyDrawer extends StatefulWidget {
+  @override
+  _MyDrawerState createState() => _MyDrawerState();
+}
+
+class _MyDrawerState extends State<MyDrawer> {
+  String _name = "";
+
+  @override
+  void initState() {
+    getName().then(updateName);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,7 +47,7 @@ class MyDrawer extends StatelessWidget {
             endIndent: 20,
           ),
           ListTile(
-            title: Text(name,
+            title: Text(_name,
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,
@@ -116,5 +137,11 @@ class MyDrawer extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void updateName(String name) {
+    setState(() {
+      this._name = name;
+    });
   }
 }

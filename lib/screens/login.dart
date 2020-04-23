@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'home.dart';
 
-String name = '';
-String password = '';
-
 class LogIn extends StatefulWidget {
   @override
   _LogInState createState() => _LogInState();
 }
 
 class _LogInState extends State<LogIn> {
+  String name = '';
+  String password = '';
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _namecontroler = TextEditingController();
@@ -66,9 +65,7 @@ class _LogInState extends State<LogIn> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                SizedBox(
-                                  height: 10.0,
-                                ),
+                                SizedBox(height: 10.0),
                                 TextFormField(
                                   controller: _namecontroler,
                                   style: TextStyle(color: Colors.white),
@@ -90,10 +87,6 @@ class _LogInState extends State<LogIn> {
                                     if (value.isEmpty) {
                                       return 'Name is required';
                                     }
-                                    setState(() {
-                                      name = _namecontroler.value.text;
-                                      // print(name);
-                                    });
                                   },
                                   // onSaved: (String value) {
                                   //   this.name = value;
