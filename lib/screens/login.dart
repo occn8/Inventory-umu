@@ -15,7 +15,7 @@ class _LogInState extends State<LogIn> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _namecontroler = TextEditingController();
   final _passcontroler = TextEditingController();
-
+bool _showPassword = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,7 +97,7 @@ class _LogInState extends State<LogIn> {
                                   controller: _passcontroler,
                                   style: TextStyle(color: Colors.white),
                                   textCapitalization: TextCapitalization.words,
-                                  obscureText: true,
+                                  obscureText: !this._showPassword,
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(),
                                     filled: true,
@@ -107,6 +107,23 @@ class _LogInState extends State<LogIn> {
                                     hintStyle: TextStyle(color: Colors.white),
                                     labelText: 'Password',
                                     labelStyle: TextStyle(color: Colors.white),
+                                    suffixIcon: IconButton(
+                                      icon: Icon(
+                                        Icons.remove_red_eye,
+                                        color: this._showPassword
+                                            ? Colors.blue
+                                            : Colors.grey,
+                                      ),
+                                      // icon: this._showPassword
+                                      //     ? Icon(Icons.visibility_off)
+                                      //     : Icon(Icons.visibility),
+                                      onPressed: () {
+                                        setState(() {
+                                          this._showPassword =
+                                              !this._showPassword;
+                                        });
+                                      },
+                                    ),
                                   ),
                                   validator: (String value) {
                                     if (value.isEmpty) {
