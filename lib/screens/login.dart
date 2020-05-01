@@ -15,7 +15,7 @@ class _LogInState extends State<LogIn> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _namecontroler = TextEditingController();
   final _passcontroler = TextEditingController();
-bool _showPassword = false;
+  bool _showPassword = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,74 +66,9 @@ bool _showPassword = false;
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 SizedBox(height: 10.0),
-                                TextFormField(
-                                  controller: _namecontroler,
-                                  style: TextStyle(color: Colors.white),
-                                  textCapitalization: TextCapitalization.words,
-                                  decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                        color: Theme.of(context).primaryColor,
-                                      )),
-                                      filled: true,
-                                      // icon: Icon(Icons.person, color: Colors.red),
-                                      fillColor: Colors.grey[700],
-                                      hintText: 'your name',
-                                      hintStyle: TextStyle(color: Colors.white),
-                                      labelText: 'Name',
-                                      labelStyle:
-                                          TextStyle(color: Colors.white)),
-                                  validator: (String value) {
-                                    if (value.isEmpty) {
-                                      return 'Name is required';
-                                    }
-                                  },
-                                  // onSaved: (String value) {
-                                  //   this.name = value;
-                                  // },
-                                ),
+                                _buildNameFormField(context),
                                 SizedBox(height: 30.0),
-                                TextFormField(
-                                  controller: _passcontroler,
-                                  style: TextStyle(color: Colors.white),
-                                  textCapitalization: TextCapitalization.words,
-                                  obscureText: !this._showPassword,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    filled: true,
-                                    // icon: Icon(Icons.person, color: Colors.red),
-                                    fillColor: Colors.grey[700],
-                                    hintText: 'your Password',
-                                    hintStyle: TextStyle(color: Colors.white),
-                                    labelText: 'Password',
-                                    labelStyle: TextStyle(color: Colors.white),
-                                    suffixIcon: IconButton(
-                                      icon: Icon(
-                                        Icons.remove_red_eye,
-                                        color: this._showPassword
-                                            ? Colors.blue
-                                            : Colors.grey,
-                                      ),
-                                      // icon: this._showPassword
-                                      //     ? Icon(Icons.visibility_off)
-                                      //     : Icon(Icons.visibility),
-                                      onPressed: () {
-                                        setState(() {
-                                          this._showPassword =
-                                              !this._showPassword;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                  validator: (String value) {
-                                    if (value.isEmpty) {
-                                      return 'Password is required';
-                                    }
-                                  },
-                                  // onSaved: (String value) {
-                                  //   this.password = value;
-                                  // },
-                                ),
+                                _buildPassWordFormField(),
                                 SizedBox(height: 20.0),
                                 RaisedButton(
                                   color: Colors.blueGrey,
@@ -188,6 +123,75 @@ bool _showPassword = false;
           ],
         ),
       ),
+    );
+  }
+
+  TextFormField _buildPassWordFormField() {
+    return TextFormField(
+                                controller: _passcontroler,
+                                style: TextStyle(color: Colors.white),
+                                textCapitalization: TextCapitalization.words,
+                                obscureText: !this._showPassword,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  filled: true,
+                                  // icon: Icon(Icons.person, color: Colors.red),
+                                  fillColor: Colors.grey[700],
+                                  hintText: 'your Password',
+                                  hintStyle: TextStyle(color: Colors.white),
+                                  labelText: 'Password',
+                                  labelStyle: TextStyle(color: Colors.white),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      Icons.remove_red_eye,
+                                      color: this._showPassword
+                                          ? Colors.blue
+                                          : Colors.grey,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        this._showPassword =
+                                            !this._showPassword;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                validator: (String value) {
+                                  if (value.isEmpty) {
+                                    return 'Password is required';
+                                  }
+                                },
+                                // onSaved: (String value) {
+                                //   this.password = value;
+                                // },
+                              );
+  }
+
+  TextFormField _buildNameFormField(BuildContext context) {
+    return TextFormField(
+      controller: _namecontroler,
+      style: TextStyle(color: Colors.white),
+      textCapitalization: TextCapitalization.words,
+      decoration: InputDecoration(
+          border: OutlineInputBorder(
+              borderSide: BorderSide(
+            color: Theme.of(context).primaryColor,
+          )),
+          filled: true,
+          // icon: Icon(Icons.person, color: Colors.red),
+          fillColor: Colors.grey[700],
+          hintText: 'your name',
+          hintStyle: TextStyle(color: Colors.white),
+          labelText: 'Name',
+          labelStyle: TextStyle(color: Colors.white)),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Name is required';
+        }
+      },
+      // onSaved: (String value) {
+      //   this.name = value;
+      // },
     );
   }
 }
