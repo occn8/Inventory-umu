@@ -128,43 +128,42 @@ class _LogInState extends State<LogIn> {
 
   TextFormField _buildPassWordFormField() {
     return TextFormField(
-                                controller: _passcontroler,
-                                style: TextStyle(color: Colors.white),
-                                textCapitalization: TextCapitalization.words,
-                                obscureText: !this._showPassword,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  filled: true,
-                                  // icon: Icon(Icons.person, color: Colors.red),
-                                  fillColor: Colors.grey[700],
-                                  hintText: 'your Password',
-                                  hintStyle: TextStyle(color: Colors.white),
-                                  labelText: 'Password',
-                                  labelStyle: TextStyle(color: Colors.white),
-                                  suffixIcon: IconButton(
-                                    icon: Icon(
-                                      Icons.remove_red_eye,
-                                      color: this._showPassword
-                                          ? Colors.blue
-                                          : Colors.grey,
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        this._showPassword =
-                                            !this._showPassword;
-                                      });
-                                    },
-                                  ),
-                                ),
-                                validator: (String value) {
-                                  if (value.isEmpty) {
-                                    return 'Password is required';
-                                  }
-                                },
-                                // onSaved: (String value) {
-                                //   this.password = value;
-                                // },
-                              );
+      controller: _passcontroler,
+      style: TextStyle(color: Colors.white),
+      textCapitalization: TextCapitalization.words,
+      obscureText: !this._showPassword,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(),
+        filled: true,
+        // icon: Icon(Icons.person, color: Colors.red),
+        fillColor: Colors.grey[700],
+        hintText: 'your Password',
+        hintStyle: TextStyle(color: Colors.white),
+        labelText: 'Password',
+        labelStyle: TextStyle(color: Colors.white),
+        suffixIcon: IconButton(
+          icon: Icon(
+            Icons.remove_red_eye,
+            color: this._showPassword ? Colors.blue : Colors.grey,
+          ),
+          onPressed: () {
+            setState(() {
+              this._showPassword = !this._showPassword;
+            });
+          },
+        ),
+      ),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Password is required';
+        } else {
+          return null;
+        }
+      },
+      // onSaved: (String value) {
+      //   this.password = value;
+      // },
+    );
   }
 
   TextFormField _buildNameFormField(BuildContext context) {
@@ -187,6 +186,8 @@ class _LogInState extends State<LogIn> {
       validator: (String value) {
         if (value.isEmpty) {
           return 'Name is required';
+        } else {
+          return null;
         }
       },
       // onSaved: (String value) {
