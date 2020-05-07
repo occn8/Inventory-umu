@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import '../utils/dbhelper.dart';
@@ -142,15 +141,17 @@ class _UsersState extends State<UsersP> {
   void _delete(BuildContext context, Users user) async {
     int result = await dataBaseHelper2.deleteUser(user.id);
     if (result != 0) {
-      _showSnackBar(context, 'user removed');
+      // _showSnackBar(context, 'user removed');
       updateUserListView();
+       final snackBar = SnackBar(content: Text('user removed'));
+    Scaffold.of(context).showSnackBar(snackBar);
     }
   }
 
-  Void _showSnackBar(BuildContext context, String message) {
-    final snackBar = SnackBar(content: Text(message));
-    Scaffold.of(context).showSnackBar(snackBar);
-  }
+  // Void _showSnackBar(BuildContext context, String message) {
+  //   final snackBar = SnackBar(content: Text(message));
+  //   Scaffold.of(context).showSnackBar(snackBar);
+  // }
 
   void navigateToDetail(Users user, String name) async {
     bool result =

@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:curve4/widgets/mydrawer.dart';
 import 'package:flutter/material.dart';
@@ -27,30 +26,28 @@ class _InvMgtState extends State<InvMgt> {
     }
 
     return SafeArea(
-          child: Scaffold(
-        appBar: AppBar(
-          leading: Builder(
-            builder: (context) => IconButton(
-              icon: new Icon(Icons.menu,
-                  color: Colors.white),
-              onPressed: () => Scaffold.of(context).openDrawer(),
+      child: Scaffold(
+          appBar: AppBar(
+            leading: Builder(
+              builder: (context) => IconButton(
+                icon: new Icon(Icons.menu, color: Colors.white),
+                onPressed: () => Scaffold.of(context).openDrawer(),
+              ),
             ),
+            title: Text('Inventory'),
+            centerTitle: true,
           ),
-          title: Text('Inventory'),
-          centerTitle: true,
-        ),
-        body: getNoteListView(),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            navigateToDetail(Products('', '', 2), 'Add Item');
-          },
-          label: Text("Add"),
-          icon: Icon(Icons.add),
-          backgroundColor: Theme.of(context).accentColor,
-          elevation: 4,
-        ),
-        drawer: MyDrawer()
-      ),
+          body: getNoteListView(),
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () {
+              navigateToDetail(Products('', '', 2), 'Add Item');
+            },
+            label: Text("Add"),
+            icon: Icon(Icons.add),
+            backgroundColor: Theme.of(context).accentColor,
+            elevation: 4,
+          ),
+          drawer: MyDrawer()),
     );
   }
 
@@ -63,7 +60,8 @@ class _InvMgtState extends State<InvMgt> {
             color: Colors.white,
             elevation: 2,
             child: ListTile(
-              leading: CircleAvatar(radius: 28,
+              leading: CircleAvatar(
+                radius: 28,
                 child: getPriorityIcon(this.productList[position].priority),
                 backgroundColor:
                     getPriorityColor(this.productList[position].priority),
@@ -72,7 +70,10 @@ class _InvMgtState extends State<InvMgt> {
                 this.productList[position].title,
                 style: titleStyle,
               ),
-              subtitle: Text(this.productList[position].date,style: TextStyle(fontSize: 11),),
+              subtitle: Text(
+                this.productList[position].date,
+                style: TextStyle(fontSize: 11),
+              ),
               trailing: GestureDetector(
                   onTap: () => _delete(context, productList[position]),
                   child: Icon(Icons.delete, color: Colors.grey)),
@@ -113,15 +114,17 @@ class _InvMgtState extends State<InvMgt> {
   void _delete(BuildContext context, Products note) async {
     int result = await dataBaseHelper.deleteNote(note.id);
     if (result != 0) {
-      _showSnackBar(context, 'Item deleted successfully');
+      // _showSnackBar(context, 'Item deleted successfully');
       updateListView();
+      final snackBar = SnackBar(content: Text('Item deleted successfully'));
+      Scaffold.of(context).showSnackBar(snackBar);
     }
   }
 
-  Void _showSnackBar(BuildContext context, String message) {
-    final snackBar = SnackBar(content: Text(message));
-    Scaffold.of(context).showSnackBar(snackBar);
-  }
+  // Void _showSnackBar(BuildContext context, String message) {
+  //   final snackBar = SnackBar(content: Text(message));
+  //   Scaffold.of(context).showSnackBar(snackBar);
+  // }
 
   void navigateToDetail(Products note, String title) async {
     bool result =

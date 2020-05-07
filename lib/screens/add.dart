@@ -29,132 +29,127 @@ class _InvDetailsState extends State<InvDetails> {
     titleController.text = product.title;
     descriptionController.text = product.description;
 
-    return WillPopScope(
-      onWillPop: () {
-        moveToLastScreen();
-      },
-      child: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text(appBarTitle),
-            centerTitle: true,
-            leading: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  moveToLastScreen();
-                }),
-          ),
-          body: Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8, top: 10),
-            child: ListView(
-              children: <Widget>[
-                ListTile(
-                  leading: Text(
-                    'Item Status: ',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                  title: DropdownButton(
-                      items: _priorities.map((String dropDownStringItem) {
-                        return DropdownMenuItem<String>(
-                          child: Text(dropDownStringItem),
-                          value: dropDownStringItem,
-                        );
-                      }).toList(),
-                      style: textStyle,
-                      value: getPriorityAsString(product.priority),
-                      onChanged: (valueSelectedByUser) {
-                        setState(() {
-                          updatePriorityAsInt(valueSelectedByUser);
-                        });
-                      }),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(appBarTitle),
+          centerTitle: true,
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                moveToLastScreen();
+              }),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.only(left: 8.0, right: 8, top: 10),
+          child: ListView(
+            children: <Widget>[
+              ListTile(
+                leading: Text(
+                  'Item Status: ',
+                  style: TextStyle(fontSize: 15),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: TextField(
-                    controller: titleController,
+                title: DropdownButton(
+                    items: _priorities.map((String dropDownStringItem) {
+                      return DropdownMenuItem<String>(
+                        child: Text(dropDownStringItem),
+                        value: dropDownStringItem,
+                      );
+                    }).toList(),
                     style: textStyle,
-                    onChanged: (value) {
-                      updateTitle();
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Product Name',
-                      labelStyle: textStyle,
-                      // border: OutlineInputBorder(
-                      //     borderRadius: BorderRadius.circular(5)),
-                    ),
+                    value: getPriorityAsString(product.priority),
+                    onChanged: (valueSelectedByUser) {
+                      setState(() {
+                        updatePriorityAsInt(valueSelectedByUser);
+                      });
+                    }),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: TextField(
+                  controller: titleController,
+                  style: textStyle,
+                  onChanged: (value) {
+                    updateTitle();
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'Product Name',
+                    labelStyle: textStyle,
+                    // border: OutlineInputBorder(
+                    //     borderRadius: BorderRadius.circular(5)),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: TextField(
-                    maxLines: 4,
-                    controller: descriptionController,
-                    style: textStyle,
-                    onChanged: (value) {
-                      updateDescription();
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Description',
-                      labelStyle: textStyle,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5)),
-                    ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: TextField(
+                  maxLines: 4,
+                  controller: descriptionController,
+                  style: textStyle,
+                  onChanged: (value) {
+                    updateDescription();
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'Description',
+                    labelStyle: textStyle,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5)),
                   ),
                 ),
-                Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 50),
-                    child: RaisedButton(
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      onPressed: () {},
-                      child: Text(
-                        'Scan Item',
-                        style: TextStyle(color: Colors.black),
+              ),
+              Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 50),
+                  child: RaisedButton(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    onPressed: () {},
+                    child: Text(
+                      'Scan Item',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  )),
+              Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            color: Theme.of(context).primaryColor,
+                            child: Text(
+                              'Save',
+                              style: TextStyle(color: Colors.white),
+                              textScaleFactor: 1.5,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _save();
+                              });
+                            }),
                       ),
-                    )),
-                Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: RaisedButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              color: Theme.of(context).primaryColor,
-                              child: Text(
-                                'Save',
-                                style: TextStyle(color: Colors.white),
-                                textScaleFactor: 1.5,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  _save();
-                                });
-                              }),
-                        ),
-                        SizedBox(width: 5),
-                        Expanded(
-                          child: RaisedButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              color: Theme.of(context).primaryColor,
-                              child: Text(
-                                'Cancel',
-                                style: TextStyle(color: Colors.white),
-                                textScaleFactor: 1.5,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  moveToLastScreen();
-                                });
-                              }),
-                        )
-                      ],
-                    )),
-              ],
-            ),
+                      SizedBox(width: 5),
+                      Expanded(
+                        child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            color: Theme.of(context).primaryColor,
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(color: Colors.white),
+                              textScaleFactor: 1.5,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                moveToLastScreen();
+                              });
+                            }),
+                      )
+                    ],
+                  )),
+            ],
           ),
         ),
       ),
@@ -218,26 +213,26 @@ class _InvDetailsState extends State<InvDetails> {
     Scaffold.of(context).showSnackBar(snackBar);
   }
 
-  void _delete() async {
-    moveToLastScreen();
+  // void _delete() async {
+  //   moveToLastScreen();
 
-    if (product.id != null) {
-      _showAlartDialog('status', 'no product  deleted');
-      return;
-    }
-    int result = await helper.deleteNote(product.id);
-    if (result != 0) {
-      _showAlartDialog('status', 'product deleted successfully');
-    } else {
-      _showAlartDialog('status', 'Error occured deleting product');
-    }
-  }
+  //   if (product.id != null) {
+  //     _showAlartDialog('status', 'no product  deleted');
+  //     return;
+  //   }
+  //   int result = await helper.deleteNote(product.id);
+  //   if (result != 0) {
+  //     _showAlartDialog('status', 'product deleted successfully');
+  //   } else {
+  //     _showAlartDialog('status', 'Error occured deleting product');
+  //   }
+  // }
 
-  void _showAlartDialog(String title, String message) {
-    AlertDialog alartDialog = AlertDialog(
-      title: Text(title),
-      content: Text(message),
-    );
-    showDialog(context: context, builder: (_) => alartDialog);
-  }
+  // void _showAlartDialog(String title, String message) {
+  //   AlertDialog alartDialog = AlertDialog(
+  //     title: Text(title),
+  //     content: Text(message),
+  //   );
+  //   showDialog(context: context, builder: (_) => alartDialog);
+  // }
 }
