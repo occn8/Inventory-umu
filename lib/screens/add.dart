@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/products.dart';
 import '../utils/dbhelper.dart';
+// import 'dart:async';
+// import 'package:barcode_scan/barcode_scan.dart';
+// import 'package:flutter/services.dart';
 
 class InvDetails extends StatefulWidget {
   final String appBarTitle;
@@ -22,12 +25,14 @@ class _InvDetailsState extends State<InvDetails> {
   static var _priorities = ['Good', 'Maintainance'];
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  String barcode = "";
 
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.subhead;
     titleController.text = product.title;
     descriptionController.text = product.description;
+    barcode = product.barcode;
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -104,7 +109,9 @@ class _InvDetailsState extends State<InvDetails> {
                     elevation: 4,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
-                    onPressed: () {},
+                    onPressed: () {
+                      // scan();
+                    },
                     child: Text(
                       'Scan Item',
                       style: TextStyle(color: Colors.black),
@@ -160,6 +167,25 @@ class _InvDetailsState extends State<InvDetails> {
     Navigator.pop(context, true);
   }
 
+  // Future scan() async {
+  //   try {
+  //     String barcode = await BarcodeScanner.scan();
+  //     setState(() => this.barcode = barcode);
+  //   } on PlatformException catch (e) {
+  //     if (e.code == BarcodeScanner.CameraAccessDenied) {
+  //       setState(() {
+  //         this.barcode = null;
+  //       });
+  //     } else {
+  //       setState(() => this.barcode = null);
+  //     }
+  //   } on FormatException {
+  //     setState(() => this.barcode = null);
+  //   } catch (e) {
+  //     setState(() => this.barcode = null);
+  //   }
+  // }
+
   void updatePriorityAsInt(String value) {
     switch (value) {
       case 'Good':
@@ -190,6 +216,10 @@ class _InvDetailsState extends State<InvDetails> {
 
   void updateDescription() {
     product.description = descriptionController.text;
+  }
+
+  void updateBarcode() {
+    product.barCode = barcode;
   }
 
   void _save() async {

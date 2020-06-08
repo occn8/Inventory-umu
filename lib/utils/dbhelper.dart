@@ -15,6 +15,8 @@ class DataBaseHelper {
   String colDescription = 'description';
   String colPriority = 'priority';
   String colDate = 'date';
+  String colBarcode = 'barcode';
+
 //user table
   String userTable = 'user_table';
   String usrId = 'id';
@@ -50,10 +52,10 @@ class DataBaseHelper {
       // 'CREATE TABLE $productTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT,$colDescription TEXT, $colPriority INTEGER, $colDate Text)'
       'CREATE TABLE $userTable($usrId INTEGER PRIMARY KEY AUTOINCREMENT, $usrName TEXT,$usrPassword TEXT)',
     );
-     await db.execute(
-      'CREATE TABLE $productTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT,$colDescription TEXT, $colPriority INTEGER, $colDate Text)'
-      // 'CREATE TABLE $userTable($usrId INTEGER PRIMARY KEY AUTOINCREMENT, $usrName TEXT,$usrPassword TEXT)',
-    );
+    await db.execute(
+        'CREATE TABLE $productTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT,$colDescription TEXT, $colPriority INTEGER, $colDate Text, $colBarcode Text)'
+        // 'CREATE TABLE $userTable($usrId INTEGER PRIMARY KEY AUTOINCREMENT, $usrName TEXT,$usrPassword TEXT)',
+        );
   }
 
   //fetch operation

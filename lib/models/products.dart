@@ -1,19 +1,22 @@
 class Products {
-  int _id;
+  int _id, _priority;
   String _title;
   String _description;
   String _date;
-  int _priority;
+  String _barcode;
 
-  Products(this._title, this._date, this._priority, [this._description]);
+  Products(this._title, this._date, this._priority, this._barcode,
+      [this._description]);
 
-  Products.withId(this._id, this._title, this._date, this._priority,
+  Products.withId(
+      this._id, this._title, this._date, this._priority, this._barcode,
       [this._description]);
 
   int get id => _id;
   String get title => _title;
   String get description => _description;
   String get date => _date;
+  String get barcode => _barcode;
   int get priority => _priority;
 
   set title(String newTitle) {
@@ -38,6 +41,12 @@ class Products {
     this._date = newDate;
   }
 
+  set barCode(String newBarcode) {
+    if (newBarcode.length <= 255) {
+      this._title = newBarcode;
+    }
+  }
+
   //convert note object into map object
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
@@ -50,6 +59,7 @@ class Products {
     map['description'] = _description;
     map['priority'] = _priority;
     map['date'] = _date;
+    map['barcode'] = _barcode;
 
     return map;
   }
@@ -61,5 +71,6 @@ class Products {
     this._description = map['description'];
     this._priority = map['priority'];
     this._date = map['date'];
+    this._barcode = map['barcode'];
   }
 }
