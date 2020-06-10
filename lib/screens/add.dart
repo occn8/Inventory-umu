@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:intl/intl.dart';
 import '../models/products.dart';
 import '../utils/dbhelper.dart';
-// import 'dart:async';
-// import 'package:barcode_scan/barcode_scan.dart';
-// import 'package:flutter/services.dart';
 
 class InvDetails extends StatefulWidget {
   final String appBarTitle;
@@ -25,7 +25,7 @@ class _InvDetailsState extends State<InvDetails> {
   static var _priorities = ['Good', 'Maintainance'];
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  String barcode = "";
+  String barcode = "Null";
 
   @override
   Widget build(BuildContext context) {
@@ -109,9 +109,7 @@ class _InvDetailsState extends State<InvDetails> {
                     elevation: 4,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
-                    onPressed: () {
-                      // scan();
-                    },
+                    onPressed: () => scanBarcodeNormal(),
                     child: Text(
                       'Scan Item',
                       style: TextStyle(color: Colors.black),
@@ -167,24 +165,21 @@ class _InvDetailsState extends State<InvDetails> {
     Navigator.pop(context, true);
   }
 
-  // Future scan() async {
-  //   try {
-  //     String barcode = await BarcodeScanner.scan();
-  //     setState(() => this.barcode = barcode);
-  //   } on PlatformException catch (e) {
-  //     if (e.code == BarcodeScanner.CameraAccessDenied) {
-  //       setState(() {
-  //         this.barcode = null;
-  //       });
-  //     } else {
-  //       setState(() => this.barcode = null);
-  //     }
-  //   } on FormatException {
-  //     setState(() => this.barcode = null);
-  //   } catch (e) {
-  //     setState(() => this.barcode = null);
-  //   }
-  // }
+   Future<void> scanBarcodeNormal() async {
+    String barcodeScanRes;
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          "#ff6666", "Cancel", true, ScanMode.BARCODE);
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+    if (!mounted) return;
+
+    setState(() {
+      barcode = barcodeScanRes;
+    });
+  }
 
   void updatePriorityAsInt(String value) {
     switch (value) {
@@ -265,4 +260,92 @@ class _InvDetailsState extends State<InvDetails> {
   //   );
   //   showDialog(context: context, builder: (_) => alartDialog);
   // }
+}
+
+
+
+
+
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String scanBarcode = 'Null';
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  startBarcodeScanStream() async {
+    FlutterBarcodeScanner.getBarcodeStreamReceiver(
+            "#ff6666", "Cancel", true, ScanMode.BARCODE)
+        .listen((barcode) => print(barcode));
+  }
+
+  Future<void> scanQR() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          "#ff6666", "Cancel", true, ScanMode.QR);
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      scanBarcode = barcodeScanRes;
+    });
+  }
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> scanBarcodeNormal() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          "#ff6666", "Cancel", true, ScanMode.BARCODE);
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+    if (!mounted) return;
+
+    setState(() {
+      scanBarcode = barcodeScanRes;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        home: Scaffold(
+            appBar: AppBar(title: const Text('Barcode scan')),
+            body: Builder(builder: (BuildContext context) {
+              return Container(
+                  alignment: Alignment.center,
+                  child: Flex(
+                      direction: Axis.vertical,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        RaisedButton(
+                            onPressed: () => scanBarcodeNormal(),
+                            child: Text("Start barcode scan")),
+                        RaisedButton(
+                            onPressed: () => scanQR(),
+                            child: Text("Start QR scan")),
+                        RaisedButton(
+                            onPressed: () => startBarcodeScanStream(),
+                            child: Text("Start barcode scan stream")),
+                        Text('Scan result : $scanBarcode\n',
+                            style: TextStyle(fontSize: 20))
+                      ]));
+            })));
+  }
 }
