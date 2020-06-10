@@ -1,4 +1,3 @@
-
 import 'package:curve4/widgets/mydrawer.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -40,7 +39,7 @@ class _InvMgtState extends State<InvMgt> {
           body: getNoteListView(),
           floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
-              navigateToDetail(Products('', '', 2), 'Add Item');
+              navigateToDetail(Products('', '', 2, ''), 'Add Item');
             },
             label: Text("Add"),
             icon: Icon(Icons.add),
@@ -70,9 +69,17 @@ class _InvMgtState extends State<InvMgt> {
                 this.productList[position].title,
                 style: titleStyle,
               ),
-              subtitle: Text(
-                this.productList[position].date,
-                style: TextStyle(fontSize: 11),
+              subtitle: Row(
+                children: <Widget>[
+                  Text(
+                    this.productList[position].barcode,
+                    style: TextStyle(fontSize: 11),
+                  ),
+                  Text(
+                    this.productList[position].date,
+                    style: TextStyle(fontSize: 11),
+                  ),
+                ],
               ),
               trailing: GestureDetector(
                   onTap: () => _delete(context, productList[position]),
