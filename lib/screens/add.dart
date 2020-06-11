@@ -25,7 +25,7 @@ class _InvDetailsState extends State<InvDetails> {
   static var _priorities = ['Good', 'Maintainance'];
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  String barcode = "Null";
+  String barcode = "";
 
   @override
   Widget build(BuildContext context) {
@@ -104,12 +104,30 @@ class _InvDetailsState extends State<InvDetails> {
                 ),
               ),
               Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      'code:',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    SizedBox(width: 5),
+                    Text(
+                      barcode ?? 'null',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
                   padding: EdgeInsets.symmetric(vertical: 5, horizontal: 50),
                   child: RaisedButton(
                     elevation: 4,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
-                    onPressed: () => scanBarcodeNormal(),
+                    onPressed: () {
+                      scanBarcodeNormal();
+                    },
                     child: Text(
                       'Scan Item',
                       style: TextStyle(color: Colors.black),
@@ -130,8 +148,24 @@ class _InvDetailsState extends State<InvDetails> {
                               textScaleFactor: 1.5,
                             ),
                             onPressed: () {
-                              setState(() {
-                                _save();
+                              setState(() async {
+                                // _save();
+                                moveToLastScreen();
+                                product.date =
+                                    DateFormat.yMMMd().format(DateTime.now());
+                                int result;
+                                if (product.id != null) {
+                                  result = await helper.updateNote(product);
+                                } else {
+                                  result = await helper.insertNote(product);
+                                }
+                                if (result != 0) {
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                      content: Text('Saved successfully')));
+                                } else {
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                      content: Text('problem saveing')));
+                                }
                               });
                             }),
                       ),
@@ -165,20 +199,21 @@ class _InvDetailsState extends State<InvDetails> {
     Navigator.pop(context, true);
   }
 
-   Future<void> scanBarcodeNormal() async {
+  Future<void> scanBarcodeNormal() async {
     String barcodeScanRes;
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           "#ff6666", "Cancel", true, ScanMode.BARCODE);
       print(barcodeScanRes);
     } on PlatformException {
-      barcodeScanRes = 'Failed to get platform version.';
+      barcodeScanRes = 'Null';
     }
     if (!mounted) return;
 
     setState(() {
       barcode = barcodeScanRes;
     });
+    updateBarcode();
   }
 
   void updatePriorityAsInt(String value) {
@@ -217,21 +252,22 @@ class _InvDetailsState extends State<InvDetails> {
     product.barCode = barcode;
   }
 
-  void _save() async {
-    moveToLastScreen();
-    product.date = DateFormat.yMMMd().format(DateTime.now());
-    int result;
-    if (product.id != null) {
-      result = await helper.updateNote(product);
-    } else {
-      result = await helper.insertNote(product);
-    }
-    if (result != 0) {
-      _showSnackBar(context, 'Saved successfully');
-    } else {
-      _showSnackBar(context, 'problem saveing');
-    }
-  }
+  // void _save() async {
+  //   moveToLastScreen();
+  //   product.date = DateFormat.yMMMd().format(DateTime.now());
+  //   int result;
+  //   if (product.id != null) {
+  //     result = await helper.updateNote(product);
+  //   } else {
+  //     result = await helper.insertNote(product);
+  //   }
+  //   if (result != 0) {
+  //     Scaffold.of(context).showSnackBar(SnackBar(content: Text('message')));
+  //     _showSnackBar(context, 'Saved successfully');
+  //   } else {
+  //     _showSnackBar(context, 'problem saveing');
+  //   }
+  // }
 
   _showSnackBar(BuildContext context, String message) {
     final snackBar = SnackBar(content: Text(message));
@@ -261,11 +297,6 @@ class _InvDetailsState extends State<InvDetails> {
   //   showDialog(context: context, builder: (_) => alartDialog);
   // }
 }
-
-
-
-
-
 
 class MyApp extends StatefulWidget {
   @override

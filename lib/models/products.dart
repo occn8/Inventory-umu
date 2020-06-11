@@ -43,7 +43,7 @@ class Products {
 
   set barCode(String newBarcode) {
     if (newBarcode.length <= 255) {
-      this._title = newBarcode;
+      this._barcode= newBarcode;
     }
   }
 

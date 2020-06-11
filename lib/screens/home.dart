@@ -69,17 +69,9 @@ class _InvMgtState extends State<InvMgt> {
                 this.productList[position].title,
                 style: titleStyle,
               ),
-              subtitle: Row(
-                children: <Widget>[
-                  Text(
-                    this.productList[position].barcode,
-                    style: TextStyle(fontSize: 11),
-                  ),
-                  Text(
-                    this.productList[position].date,
-                    style: TextStyle(fontSize: 11),
-                  ),
-                ],
+              subtitle: Text(
+                this.productList[position].barcode,
+                style: TextStyle(fontSize: 11),
               ),
               trailing: GestureDetector(
                   onTap: () => _delete(context, productList[position]),
