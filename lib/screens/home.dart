@@ -1,4 +1,5 @@
 import 'package:backdrop/backdrop.dart';
+import 'package:curve4/widgets/mydrawer.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import '../models/products.dart';
@@ -39,13 +40,14 @@ class _InvMgtState extends State<InvMgt> {
         headerHeight: 120,
         appBar: BackdropAppBar(
           title: Text("Inventory"),
-          actions: <Widget>[
-            BackdropToggleButton(
-              icon: AnimatedIcons.list_view,
-            )
-          ],
+          centerTitle: true,
+          // actions: <Widget>[
+          //   BackdropToggleButton(
+          //     icon: AnimatedIcons.list_view,
+          //   )
+          // ],
         ),
-        backLayer: Center(),
+        backLayer:BackLay(),
         frontLayer: getNoteListView(),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {

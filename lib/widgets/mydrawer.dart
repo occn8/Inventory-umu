@@ -11,12 +11,12 @@ Future<String> getName() async {
   return name;
 }
 
-class MyDrawer extends StatefulWidget {
+class BackLay extends StatefulWidget {
   @override
-  _MyDrawerState createState() => _MyDrawerState();
+  _BackLayState createState() => _BackLayState();
 }
 
-class _MyDrawerState extends State<MyDrawer> {
+class _BackLayState extends State<BackLay> {
   String _name = "";
 
   @override
@@ -25,47 +25,39 @@ class _MyDrawerState extends State<MyDrawer> {
     super.initState();
   }
 
+  void updateName(String name) {
+    setState(() {
+      this._name = name;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 260,
       padding: EdgeInsets.symmetric(horizontal: 20),
-      color: Theme.of(context).accentColor,
       child: Column(
         children: <Widget>[
-          SizedBox(height: 20),
-          Text('UMU Inventory',
-              style: TextStyle(
-                  color: Colors.grey[300],
-                  fontSize: 20,
-                  fontWeight: FontWeight.w400)),
-          Divider(
-            height: 64,
-            thickness: 0.5,
-            color: Colors.white.withOpacity(0.5),
-            indent: 20,
-            endIndent: 20,
-          ),
+          SizedBox(height: 5),
           ListTile(
             title: Text(_name,
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.w800)),
             leading: CircleAvatar(
               backgroundColor: Colors.white,
               child: Icon(
                 Icons.person,
-                size: 34,
+                size: 30,
                 color: Colors.blue,
               ),
-              radius: 35,
+              radius: 28,
             ),
           ),
           Divider(
             height: 40,
             thickness: 0.5,
-            color: Colors.white.withOpacity(0.5),
+            color: Colors.white60,
             indent: 20,
             endIndent: 20,
           ),
@@ -74,7 +66,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 color: Colors.white70, borderRadius: BorderRadius.circular(20)),
             child: GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                // Navigator.pop(context);
               },
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -98,7 +90,7 @@ class _MyDrawerState extends State<MyDrawer> {
             icon: Icons.rate_review,
             title: 'Reports',
             ontap: () {
-              Navigator.pop(context);
+              // Navigator.pop(context);
               Navigator.pushNamed(context, '/reports');
             },
           ),
@@ -106,18 +98,14 @@ class _MyDrawerState extends State<MyDrawer> {
             icon: Icons.person,
             title: 'Users',
             ontap: () {
-              Navigator.pop(context);
+              // Navigator.pop(context);
               Navigator.pushNamed(context, '/users');
             },
           ),
-          MenuItem(
-            icon: Icons.settings,
-            title: 'Settings',
-          ),
           Divider(
-            height: 40,
+            height: 30,
             thickness: 0.5,
-            color: Colors.white.withOpacity(0.5),
+            color: Colors.white60,
             indent: 20,
             endIndent: 20,
           ),
@@ -137,11 +125,5 @@ class _MyDrawerState extends State<MyDrawer> {
         ],
       ),
     );
-  }
-
-  void updateName(String name) {
-    setState(() {
-      this._name = name;
-    });
   }
 }
