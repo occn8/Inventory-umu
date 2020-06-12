@@ -2,7 +2,7 @@ import 'package:backdrop/backdrop.dart';
 import 'package:curve4/widgets/backlayer.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import '../models/products.dart';
+import '../models/products_model.dart';
 import '../utils/dbhelper.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -15,13 +15,13 @@ class InvMgt extends StatefulWidget {
 
 class _InvMgtState extends State<InvMgt> {
   DataBaseHelper dataBaseHelper = DataBaseHelper();
-  List<Products> productList;
+  List<ProductsModel> productList;
   int count = 0;
 
   @override
   Widget build(BuildContext context) {
     if (productList == null) {
-      productList = List<Products>();
+      productList = List<ProductsModel>();
       updateListView();
     }
 
@@ -41,7 +41,7 @@ class _InvMgtState extends State<InvMgt> {
         frontLayer: getNoteListView(),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            navigateToDetail(Products('', '', 2, ''), 'Add Item');
+            navigateToDetail(ProductsModel('', '', 2, ''), 'Add Item');
           },
           label: Text("Add"),
           icon: Icon(Icons.add),
@@ -53,7 +53,7 @@ class _InvMgtState extends State<InvMgt> {
   }
 
   getNoteListView() {
-    TextStyle titleStyle = Theme.of(context).textTheme.subhead;
+    TextStyle titleStyle = TextStyle(color: Colors.black);
     return ListView.builder(
         itemCount: count,
         itemBuilder: (BuildContext context, int position) {
@@ -112,7 +112,7 @@ class _InvMgtState extends State<InvMgt> {
     }
   }
 
-  void _delete(BuildContext context, Products note) async {
+  void _delete(BuildContext context, ProductsModel note) async {
     int result = await dataBaseHelper.deleteNote(note.id);
     if (result != 0) {
       // _showSnackBar(context, 'Item deleted successfully');
@@ -127,7 +127,7 @@ class _InvMgtState extends State<InvMgt> {
   //   Scaffold.of(context).showSnackBar(snackBar);
   // }
 
-  void navigateToDetail(Products note, String title) async {
+  void navigateToDetail(ProductsModel note, String title) async {
     bool result =
         await Navigator.push(context, MaterialPageRoute(builder: (context) {
       return InvDetails(note, title);
@@ -140,7 +140,7 @@ class _InvMgtState extends State<InvMgt> {
   void updateListView() {
     final Future<Database> DbFuture = dataBaseHelper.initializeDatabase();
     DbFuture.then((database) {
-      Future<List<Products>> noteListFuture = dataBaseHelper.getNoteList();
+      Future<List<ProductsModel>> noteListFuture = dataBaseHelper.getNoteList();
       noteListFuture.then((noteList) {
         setState(() {
           this.productList = noteList;

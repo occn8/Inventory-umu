@@ -1,10 +1,10 @@
-import '../models/users.dart';
+import '../models/users_model.dart';
 import 'package:flutter/material.dart';
 import '../utils/dbhelper.dart';
 
 class UserDetails extends StatefulWidget {
   final String appBarTitle;
-  final Users user;
+  final UsersModel user;
   UserDetails(this.user, this.appBarTitle);
   @override
   _UserDetailsState createState() =>
@@ -15,7 +15,7 @@ class _UserDetailsState extends State<UserDetails> {
   DataBaseHelper helper2 = DataBaseHelper();
 
   String appBarTitle;
-  Users user;
+  UsersModel user;
   _UserDetailsState(this.appBarTitle, this.user);
 
   TextEditingController nameController = TextEditingController();

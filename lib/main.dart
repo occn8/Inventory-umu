@@ -18,29 +18,8 @@ Future<void> main() async {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/reports': (context) => Report(),
-        '/users': (context) => UsersP(),
+        '/reports': (context) => ReportView(),
+        '/users': (context) => UsersView(),
       },
       home: key == null ? LogIn() : InvMgt()));
 }
-
-// void main() => runApp(MyApp());
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       theme: ThemeData(
-//         primaryColor: Color.fromARGB(255, 153, 0, 0),
-//         accentColor: Color.fromARGB(255, 128, 50, 0),
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: InvMgt(),
-//       routes: {
-//         '/reports': (context) => Report(),
-//         '/users': (context) => UsersP(),
-//       },
-//     );
-//   }
-// }

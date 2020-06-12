@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import '../utils/dbhelper.dart';
-import '../models/users.dart';
+import '../models/users_model.dart';
 import 'dart:async';
 
 import 'useradd.dart';
 
-class UsersP extends StatefulWidget {
+class UsersView extends StatefulWidget {
   @override
   _UsersState createState() => _UsersState();
 }
 
-class _UsersState extends State<UsersP> {
+class _UsersState extends State<UsersView> {
   DataBaseHelper dataBaseHelper2 = DataBaseHelper();
-  List<Users> userList;
+  List<UsersModel> userList;
   int count = 0;
   Icon _icon = Icon(Icons.fiber_manual_record, size: 8);
 
   @override
   Widget build(BuildContext context) {
     if (userList == null) {
-      userList = List<Users>();
+      userList = List<UsersModel>();
       updateUserListView();
     }
 
@@ -33,7 +33,7 @@ class _UsersState extends State<UsersP> {
         body: getUserListView(),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            navigateToDetail(Users('', ''), 'Add user');
+            navigateToDetail(UsersModel('', ''), 'Add user');
           },
           label: Text("Add"),
           icon: Icon(Icons.person_add),
@@ -45,7 +45,7 @@ class _UsersState extends State<UsersP> {
   }
 
   getUserListView() {
-    TextStyle titleStyle = Theme.of(context).textTheme.subhead;
+    TextStyle titleStyle = TextStyle(color: Colors.black);
     return ListView.builder(
         itemCount: count,
         itemBuilder: (BuildContext context, int position) {
@@ -70,13 +70,6 @@ class _UsersState extends State<UsersP> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.white,
-                      // boxShadow: [
-                      //   BoxShadow(
-                      //     color: Colors.black,
-                      //     blurRadius: 4.0,
-                      //     offset: Offset(0.0, 4.0),
-                      //   )
-                      // ],
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -152,7 +145,7 @@ class _UsersState extends State<UsersP> {
         });
   }
 
-  void _delete(BuildContext context, Users user) async {
+  void _delete(BuildContext context, UsersModel user) async {
     int result = await dataBaseHelper2.deleteUser(user.id);
     if (result != 0) {
       // _showSnackBar(context, 'user removed');
@@ -167,7 +160,7 @@ class _UsersState extends State<UsersP> {
   //   Scaffold.of(context).showSnackBar(snackBar);
   // }
 
-  void navigateToDetail(Users user, String name) async {
+  void navigateToDetail(UsersModel user, String name) async {
     bool result =
         await Navigator.push(context, MaterialPageRoute(builder: (context) {
       return UserDetails(user, name);
@@ -180,7 +173,7 @@ class _UsersState extends State<UsersP> {
   void updateUserListView() {
     final Future<Database> DbFuture = dataBaseHelper2.initializeDatabase();
     DbFuture.then((database) {
-      Future<List<Users>> userListFuture = dataBaseHelper2.getUserList();
+      Future<List<UsersModel>> userListFuture = dataBaseHelper2.getUserList();
       userListFuture.then((userList) {
         setState(() {
           this.userList = userList;

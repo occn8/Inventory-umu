@@ -2,8 +2,8 @@ import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import '../models/products.dart';
-import '../models/users.dart';
+import '../models/products_model.dart';
+import '../models/users_model.dart';
 
 class DataBaseHelper {
   static DataBaseHelper _dataBaseHelper;
@@ -67,14 +67,14 @@ class DataBaseHelper {
   }
 
   //insert operation
-  Future<int> insertNote(Products note) async {
+  Future<int> insertNote(ProductsModel note) async {
     Database db = await this.database;
     var result = await db.insert(productTable, note.toMap());
     return result;
   }
 
   //update operation
-  Future<int> updateNote(Products note) async {
+  Future<int> updateNote(ProductsModel note) async {
     Database db = await this.database;
     var result = await db.update(productTable, note.toMap(),
         where: '$colId =?', whereArgs: [note.id]);
@@ -99,12 +99,12 @@ class DataBaseHelper {
   }
 
   //get map list[list<map>] | convert it to notelist
-  Future<List<Products>> getNoteList() async {
+  Future<List<ProductsModel>> getNoteList() async {
     var noteMapList = await getNoteMapList();
     int count = noteMapList.length;
-    List<Products> noteList = List<Products>();
+    List<ProductsModel> noteList = List<ProductsModel>();
     for (int i = 0; i < count; i++) {
-      noteList.add(Products.fromMapOject(noteMapList[i]));
+      noteList.add(ProductsModel.fromMapOject(noteMapList[i]));
     }
     return noteList;
   }
@@ -118,14 +118,14 @@ class DataBaseHelper {
   }
 
   //insert operation
-  Future<int> insertUser(Users users) async {
+  Future<int> insertUser(UsersModel users) async {
     Database db = await this.database;
     var result = await db.insert(userTable, users.toMap());
     return result;
   }
 
   //update operation
-  Future<int> updateUser(Users users) async {
+  Future<int> updateUser(UsersModel users) async {
     Database db = await this.database;
     var result = await db.update(userTable, users.toMap(),
         where: '$usrId =?', whereArgs: [users.id]);
@@ -148,12 +148,12 @@ class DataBaseHelper {
     return result;
   }
 
-  Future<List<Users>> getUserList() async {
+  Future<List<UsersModel>> getUserList() async {
     var userMapList = await getUserMapList();
     int count = userMapList.length;
-    List<Users> userList = List<Users>();
+    List<UsersModel> userList = List<UsersModel>();
     for (int i = 0; i < count; i++) {
-      userList.add(Users.fromMapOject(userMapList[i]));
+      userList.add(UsersModel.fromMapOject(userMapList[i]));
     }
     return userList;
   }

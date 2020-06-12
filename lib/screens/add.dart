@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:intl/intl.dart';
-import '../models/products.dart';
+import '../models/products_model.dart';
 import '../utils/dbhelper.dart';
 
 class InvDetails extends StatefulWidget {
   final String appBarTitle;
-  final Products note;
+  final ProductsModel note;
   InvDetails(this.note, this.appBarTitle);
   @override
   _InvDetailsState createState() =>
@@ -19,18 +19,18 @@ class _InvDetailsState extends State<InvDetails> {
   DataBaseHelper helper = DataBaseHelper();
 
   String appBarTitle;
-  Products product;
+  ProductsModel product;
   _InvDetailsState(this.appBarTitle, this.product);
 
   static var _priorities = ['Good', 'Maintainance'];
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  TextEditingController reportController = TextEditingController();
+  // TextEditingController reportController = TextEditingController();
   String barcode = "";
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = Theme.of(context).textTheme.subhead;
+    TextStyle textStyle = TextStyle(color: Colors.black);
     titleController.text = product.title;
     descriptionController.text = product.description;
     barcode = product.barcode;
@@ -79,21 +79,21 @@ class _InvDetailsState extends State<InvDetails> {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: TextField(
-                  maxLines: 4,
-                  controller: reportController,
-                  style: textStyle,
-                  onChanged: (value) {},
-                  decoration: InputDecoration(
-                    labelText: 'Report',
-                    labelStyle: textStyle,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(vertical: 10),
+              //   child: TextField(
+              //     maxLines: 4,
+              //     controller: reportController,
+              //     style: textStyle,
+              //     onChanged: (value) {},
+              //     decoration: InputDecoration(
+              //       labelText: 'Report',
+              //       labelStyle: textStyle,
+              //       border: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(5)),
+              //     ),
+              //   ),
+              // ),
               ListTile(
                 leading: Text(
                   'Item Status: ',

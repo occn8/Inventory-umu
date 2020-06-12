@@ -1,10 +1,10 @@
-class Users {
+class UsersModel {
   int _id;
   String _name, _password;
 
-  Users(this._name, [this._password]);
+  UsersModel(this._name, [this._password]);
 
-  Users.withId(this._id, this._name, [this._password]);
+  UsersModel.withId(this._id, this._name, [this._password]);
 
   int get id => _id;
   String get name => _name;
@@ -35,7 +35,7 @@ class Users {
     return map;
   }
 
-  Users.fromMapOject(Map<String, dynamic> map) {
+  UsersModel.fromMapOject(Map<String, dynamic> map) {
     this._id = map['id'];
     this._name = map['name'];
     this._password = map['password'];

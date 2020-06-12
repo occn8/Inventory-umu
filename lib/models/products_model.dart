@@ -1,11 +1,11 @@
-class Products {
+class ProductsModel {
   int _id, _priority;
   String _title, _description, _date, _barcode;
 
-  Products(this._title, this._date, this._priority, this._barcode,
+  ProductsModel(this._title, this._date, this._priority, this._barcode,
       [this._description]);
 
-  Products.withId(
+  ProductsModel.withId(
       this._id, this._title, this._date, this._priority, this._barcode,
       [this._description]);
 
@@ -60,7 +60,7 @@ class Products {
     return map;
   }
 
-  Products.fromMapOject(Map<String, dynamic> map) {
+  ProductsModel.fromMapOject(Map<String, dynamic> map) {
     this._id = map['id'];
     this._title = map['title'];
     this._description = map['description'];
