@@ -169,7 +169,7 @@ class DataBaseHelper {
 
   Future<int> insertReport(ReportModel report) async {
     Database db = await this.database;
-    var result = await db.insert(userTable, report.toMap());
+    var result = await db.insert(rptTable, report.toMap());
     return result;
   }
 

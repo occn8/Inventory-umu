@@ -92,8 +92,8 @@ class _ReportViewState extends State<ReportView> {
   }
 
   void updateReportListView() {
-    final Future<Database> dbFuture = dataBaseHelper.initializeDatabase();
-    dbFuture.then((database) {
+    final Future<Database> DbFuture = dataBaseHelper.initializeDatabase();
+    DbFuture.then((database) {
       Future<List<ReportModel>> reportListFuture =
           dataBaseHelper.getReportList();
       reportListFuture.then((reportList) {

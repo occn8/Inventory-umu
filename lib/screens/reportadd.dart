@@ -92,9 +92,23 @@ class _ReportDetailState extends State<ReportDetail> {
                               textScaleFactor: 1.5,
                             ),
                             onPressed: () {
-                              setState(() {
-                                _save();
-                                print(writerController);
+                              setState(() async {
+                                moveToLastScreen();
+                                report.date =
+                                    DateFormat.yMMMd().format(DateTime.now());
+                                int result;
+                                if (report.id != null) {
+                                  result = await helper2.updateReport(report);
+                                } else {
+                                  result = await helper2.insertReport(report);
+                                }
+                                if (result != 0) {
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                      content: Text('Saved successfully')));
+                                } else {
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                      content: Text('problem saving')));
+                                }
                               });
                             }),
                       ),
@@ -134,26 +148,5 @@ class _ReportDetailState extends State<ReportDetail> {
 
   void updateRportTxt() {
     report.reportTxt = reportTxtController.text;
-  }
-
-  void _save() async {
-    moveToLastScreen();
-    report.date = DateFormat.yMMMd().format(DateTime.now());
-    int result;
-    if (report.id != null) {
-      result = await helper2.updateReport(report);
-    } else {
-      result = await helper2.insertReport(report);
-    }
-    if (result != 0) {
-      _showSnackBar(context, 'Saved successfully');
-    } else {
-      _showSnackBar(context, 'problem saveing');
-    }
-  }
-
-  _showSnackBar(BuildContext context, String message) {
-    final snackBar = SnackBar(content: Text(message));
-    Scaffold.of(context).showSnackBar(snackBar);
   }
 }
