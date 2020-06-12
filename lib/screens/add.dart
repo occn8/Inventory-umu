@@ -105,18 +105,9 @@ class _InvDetailsState extends State<InvDetails> {
               ),
               Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      'code:',
-                      style: TextStyle(fontSize: 15),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      'Code: '+barcode ?? 'null',
-                      style: TextStyle(fontSize: 15),
-                    ),
-                  ],
+                child: Text(
+                  'Code: '+barcode ?? null,
+                  style: TextStyle(fontSize: 15),
                 ),
               ),
               Padding(

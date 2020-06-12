@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:backdrop/backdrop.dart';
 import 'package:curve4/screens/login.dart';
 import 'package:curve4/utilities/menuitems.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +90,7 @@ class _BackLayState extends State<BackLay> {
           MenuItem(
             icon: Icons.rate_review,
             title: 'Reports',
-            ontap: () {
+            ontap: () {Backdrop.of(context).fling();
               // Navigator.pop(context);
               Navigator.pushNamed(context, '/reports');
             },
