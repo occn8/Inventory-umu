@@ -1,9 +1,6 @@
 class Products {
   int _id, _priority;
-  String _title;
-  String _description;
-  String _date;
-  String _barcode;
+  String _title, _description, _date, _barcode;
 
   Products(this._title, this._date, this._priority, this._barcode,
       [this._description]);
@@ -43,11 +40,10 @@ class Products {
 
   set barCode(String newBarcode) {
     if (newBarcode.length <= 255) {
-      this._barcode= newBarcode;
+      this._barcode = newBarcode;
     }
   }
 
-  //convert note object into map object
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
 
@@ -64,7 +60,6 @@ class Products {
     return map;
   }
 
-  //extract note obj from map obj
   Products.fromMapOject(Map<String, dynamic> map) {
     this._id = map['id'];
     this._title = map['title'];

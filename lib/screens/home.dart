@@ -1,4 +1,4 @@
-import 'package:curve4/widgets/mydrawer.dart';
+import 'package:backdrop/backdrop.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import '../models/products.dart';
@@ -25,28 +25,38 @@ class _InvMgtState extends State<InvMgt> {
     }
 
     return SafeArea(
-      child: Scaffold(
-          appBar: AppBar(
-            leading: Builder(
-              builder: (context) => IconButton(
-                icon: new Icon(Icons.menu, color: Colors.white),
-                onPressed: () => Scaffold.of(context).openDrawer(),
-              ),
-            ),
-            title: Text('Inventory'),
-            centerTitle: true,
-          ),
-          body: getNoteListView(),
-          floatingActionButton: FloatingActionButton.extended(
-            onPressed: () {
-              navigateToDetail(Products('', '', 2, ''), 'Add Item');
-            },
-            label: Text("Add"),
-            icon: Icon(Icons.add),
-            backgroundColor: Theme.of(context).accentColor,
-            elevation: 4,
-          ),
-          drawer: MyDrawer()),
+      child: BackdropScaffold(
+        // appBar: AppBar(
+        //   leading: Builder(
+        //     builder: (context) => IconButton(
+        //       icon: new Icon(Icons.menu, color: Colors.white),
+        //       onPressed: () => Scaffold.of(context).openDrawer(),
+        //     ),
+        //   ),
+        //   title: Text('Inventory'),
+        //   centerTitle: true,
+        // ),
+        headerHeight: 120,
+        appBar: BackdropAppBar(
+          title: Text("Inventory"),
+          actions: <Widget>[
+            BackdropToggleButton(
+              icon: AnimatedIcons.list_view,
+            )
+          ],
+        ),
+        backLayer: Center(),
+        frontLayer: getNoteListView(),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            navigateToDetail(Products('', '', 2, ''), 'Add Item');
+          },
+          label: Text("Add"),
+          icon: Icon(Icons.add),
+          backgroundColor: Theme.of(context).accentColor,
+          elevation: 4,
+        ),
+      ),
     );
   }
 

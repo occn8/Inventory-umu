@@ -1,7 +1,6 @@
 class Users {
   int _id;
-  String _name;
-  String _password;
+  String _name, _password;
 
   Users(this._name, [this._password]);
 
@@ -23,7 +22,6 @@ class Users {
     }
   }
 
-  //convert note object into map object
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
 
@@ -37,7 +35,6 @@ class Users {
     return map;
   }
 
-  //extract note obj from map obj
   Users.fromMapOject(Map<String, dynamic> map) {
     this._id = map['id'];
     this._name = map['name'];

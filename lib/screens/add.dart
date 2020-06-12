@@ -113,7 +113,7 @@ class _InvDetailsState extends State<InvDetails> {
                     ),
                     SizedBox(width: 5),
                     Text(
-                      barcode ?? 'null',
+                      'Code: '+barcode ?? 'null',
                       style: TextStyle(fontSize: 15),
                     ),
                   ],
