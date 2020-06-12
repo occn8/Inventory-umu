@@ -27,16 +27,6 @@ class _InvMgtState extends State<InvMgt> {
 
     return SafeArea(
       child: BackdropScaffold(
-        // appBar: AppBar(
-        //   leading: Builder(
-        //     builder: (context) => IconButton(
-        //       icon: new Icon(Icons.menu, color: Colors.white),
-        //       onPressed: () => Scaffold.of(context).openDrawer(),
-        //     ),
-        //   ),
-        //   title: Text('Inventory'),
-        //   centerTitle: true,
-        // ),
         headerHeight: 120,
         appBar: BackdropAppBar(
           title: Text("Inventory"),

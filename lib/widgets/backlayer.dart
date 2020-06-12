@@ -65,9 +65,9 @@ class _BackLayState extends State<BackLay> {
           Container(
             decoration: BoxDecoration(
                 color: Colors.white70, borderRadius: BorderRadius.circular(20)),
-            child: GestureDetector(
+            child: InkWell(
               onTap: () {
-                // Navigator.pop(context);
+                Backdrop.of(context).fling();
               },
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -90,7 +90,8 @@ class _BackLayState extends State<BackLay> {
           MenuItem(
             icon: Icons.rate_review,
             title: 'Reports',
-            ontap: () {Backdrop.of(context).fling();
+            ontap: () {
+              Backdrop.of(context).fling();
               // Navigator.pop(context);
               Navigator.pushNamed(context, '/reports');
             },
@@ -99,7 +100,7 @@ class _BackLayState extends State<BackLay> {
             icon: Icons.person,
             title: 'Users',
             ontap: () {
-              // Navigator.pop(context);
+              Backdrop.of(context).fling();
               Navigator.pushNamed(context, '/users');
             },
           ),

@@ -15,6 +15,7 @@ class _UsersState extends State<UsersP> {
   DataBaseHelper dataBaseHelper2 = DataBaseHelper();
   List<Users> userList;
   int count = 0;
+  Icon _icon = Icon(Icons.fiber_manual_record, size: 8);
 
   @override
   Widget build(BuildContext context) {
@@ -50,65 +51,78 @@ class _UsersState extends State<UsersP> {
         itemBuilder: (BuildContext context, int position) {
           // if(position.isOdd)return Divider();
           return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Container(
-                  child: Icon(Icons.person,
-                      color: Theme.of(context).primaryColor, size: 25),
-                ),
-                Container(
-                  padding: EdgeInsets.all(5),
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.grey[300],
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black87,
-                        blurRadius: 4.0,
-                        offset: Offset(0.0, 4.0),
-                      )
-                    ],
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+            child: Card(
+              color: Colors.grey[300],
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    padding: new EdgeInsets.all(10),
+                    child: Icon(Icons.person,
+                        color: Theme.of(context).primaryColor, size: 25),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      SizedBox(
-                        width: 30,
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Text(this.userList[position].name, style: titleStyle),
-                          // Text(this.userList[position].password,
-                          //     style: TextStyle(fontSize: 11)),
-                          Row(
-                            children: <Widget>[
-                              Icon(Icons.more_horiz),
-                              Icon(Icons.more_horiz),
-                            ],
-                          )
-                        ],
-                      ),
-                      Spacer(),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.grey[200],
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white,
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //     color: Colors.black,
+                      //     blurRadius: 4.0,
+                      //     offset: Offset(0.0, 4.0),
+                      //   )
+                      // ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        SizedBox(width: 30),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(this.userList[position].name,
+                                style: titleStyle),
+                            // Text(this.userList[position].password,
+                            //     style: TextStyle(fontSize: 11)),
+                            SizedBox(height: 8),
+                            Row(
+                              children: <Widget>[
+                                _icon,
+                                _icon,
+                                _icon,
+                                _icon,
+                                _icon,
+                                _icon,
+                                _icon,
+                                _icon,
+                              ],
+                            )
+                          ],
                         ),
-                        child: GestureDetector(
-                            onTap: () => _delete(context, userList[position]),
-                            child: Icon(
-                              Icons.delete,
-                              color: Colors.redAccent,
-                              size: 30,
-                            )),
-                      ),
-                    ],
+                        Spacer(),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.grey[200],
+                          ),
+                          child: GestureDetector(
+                              onTap: () => _delete(context, userList[position]),
+                              child: Icon(
+                                Icons.delete_outline,
+                                color: Colors.redAccent,
+                                size: 30,
+                              )),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
           // return Card(
@@ -143,8 +157,8 @@ class _UsersState extends State<UsersP> {
     if (result != 0) {
       // _showSnackBar(context, 'user removed');
       updateUserListView();
-       final snackBar = SnackBar(content: Text('user removed'));
-    Scaffold.of(context).showSnackBar(snackBar);
+      final snackBar = SnackBar(content: Text('user removed'));
+      Scaffold.of(context).showSnackBar(snackBar);
     }
   }
 

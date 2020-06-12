@@ -25,6 +25,7 @@ class _InvDetailsState extends State<InvDetails> {
   static var _priorities = ['Good', 'Maintainance'];
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  TextEditingController reportController = TextEditingController();
   String barcode = "";
 
   @override
@@ -47,13 +48,56 @@ class _InvDetailsState extends State<InvDetails> {
               }),
         ),
         body: Padding(
-          padding: const EdgeInsets.only(left: 8.0, right: 8, top: 10),
+          padding: const EdgeInsets.only(left: 8.0, right: 8, top: 5),
           child: ListView(
             children: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: TextField(
+                  controller: titleController,
+                  style: textStyle,
+                  onChanged: (value) {
+                    updateTitle();
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'Product Name',
+                    labelStyle: textStyle,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: TextField(
+                  controller: descriptionController,
+                  style: textStyle,
+                  onChanged: (value) {
+                    updateDescription();
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'Description',
+                    labelStyle: textStyle,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: TextField(
+                  maxLines: 4,
+                  controller: reportController,
+                  style: textStyle,
+                  onChanged: (value) {},
+                  decoration: InputDecoration(
+                    labelText: 'Report',
+                    labelStyle: textStyle,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                  ),
+                ),
+              ),
               ListTile(
                 leading: Text(
                   'Item Status: ',
-                  style: TextStyle(fontSize: 15),
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),
                 ),
                 title: DropdownButton(
                     items: _priorities.map((String dropDownStringItem) {
@@ -71,42 +115,9 @@ class _InvDetailsState extends State<InvDetails> {
                     }),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: TextField(
-                  controller: titleController,
-                  style: textStyle,
-                  onChanged: (value) {
-                    updateTitle();
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'Product Name',
-                    labelStyle: textStyle,
-                    // border: OutlineInputBorder(
-                    //     borderRadius: BorderRadius.circular(5)),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: TextField(
-                  maxLines: 4,
-                  controller: descriptionController,
-                  style: textStyle,
-                  onChanged: (value) {
-                    updateDescription();
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'Description',
-                    labelStyle: textStyle,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                  ),
-                ),
-              ),
-              Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Text(
-                  'Code: '+barcode ?? null,
+                  'Code: ' + barcode ?? null,
                   style: TextStyle(fontSize: 15),
                 ),
               ),
@@ -121,7 +132,8 @@ class _InvDetailsState extends State<InvDetails> {
                     },
                     child: Text(
                       'Scan Item',
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.w800),
                     ),
                   )),
               Padding(
