@@ -1,3 +1,4 @@
+import 'package:curve4/models/report_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'dart:io';
@@ -23,6 +24,13 @@ class DataBaseHelper {
   String usrName = 'name';
   String usrPassword = 'password';
 
+//report table
+  String rptTable = 'report_table';
+  String rptId = 'id';
+  String rptDate = 'date';
+  String rptWriter = 'writer';
+  String rptTxt = 'reportTxt';
+
   DataBaseHelper._createInstance();
 
   factory DataBaseHelper() {
@@ -41,10 +49,10 @@ class DataBaseHelper {
 
   Future<Database> initializeDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + 'notes.db';
+    String path = directory.path + 'inventory.db';
 
-    var notesDatabase = openDatabase(path, version: 1, onCreate: _createDb);
-    return notesDatabase;
+    var invtDatabase = openDatabase(path, version: 1, onCreate: _createDb);
+    return invtDatabase;
   }
 
   void _createDb(Database db, int newVersion) async {
@@ -53,9 +61,10 @@ class DataBaseHelper {
       'CREATE TABLE $userTable($usrId INTEGER PRIMARY KEY AUTOINCREMENT, $usrName TEXT,$usrPassword TEXT)',
     );
     await db.execute(
-        'CREATE TABLE $productTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT,$colDescription TEXT, $colPriority INTEGER, $colDate Text, $colBarcode Text)'
-        // 'CREATE TABLE $userTable($usrId INTEGER PRIMARY KEY AUTOINCREMENT, $usrName TEXT,$usrPassword TEXT)',
-        );
+      'CREATE TABLE $rptTable($rptId INTEGER PRIMARY KEY AUTOINCREMENT, $rptWriter TEXT,$rptTxt TEXT, $rptDate Text)',
+    );
+    await db.execute(
+        'CREATE TABLE $productTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT,$colDescription TEXT, $colPriority INTEGER, $colDate Text, $colBarcode Text)');
   }
 
   //fetch operation
@@ -66,14 +75,12 @@ class DataBaseHelper {
     return result;
   }
 
-  //insert operation
   Future<int> insertNote(ProductsModel note) async {
     Database db = await this.database;
     var result = await db.insert(productTable, note.toMap());
     return result;
   }
 
-  //update operation
   Future<int> updateNote(ProductsModel note) async {
     Database db = await this.database;
     var result = await db.update(productTable, note.toMap(),
@@ -81,7 +88,6 @@ class DataBaseHelper {
     return result;
   }
 
-  //delete operation
   Future<int> deleteNote(int id) async {
     Database db = await this.database;
     int result =
@@ -109,7 +115,6 @@ class DataBaseHelper {
     return noteList;
   }
 
-
   //user helper functions.......................................................................................
   Future<List<Map<String, dynamic>>> getUserMapList() async {
     Database db = await this.database;
@@ -117,14 +122,12 @@ class DataBaseHelper {
     return result;
   }
 
-  //insert operation
   Future<int> insertUser(UsersModel users) async {
     Database db = await this.database;
     var result = await db.insert(userTable, users.toMap());
     return result;
   }
 
-  //update operation
   Future<int> updateUser(UsersModel users) async {
     Database db = await this.database;
     var result = await db.update(userTable, users.toMap(),
@@ -132,7 +135,6 @@ class DataBaseHelper {
     return result;
   }
 
-  //delete operation
   Future<int> deleteUser(int id) async {
     Database db = await this.database;
     int result =
@@ -156,5 +158,49 @@ class DataBaseHelper {
       userList.add(UsersModel.fromMapOject(userMapList[i]));
     }
     return userList;
+  }
+
+  //report helper functions.......................................................................................
+  Future<List<Map<String, dynamic>>> getReportMapList() async {
+    Database db = await this.database;
+    var result = await db.query(rptTable, orderBy: '$rptWriter ');
+    return result;
+  }
+
+  Future<int> insertReport(ReportModel report) async {
+    Database db = await this.database;
+    var result = await db.insert(userTable, report.toMap());
+    return result;
+  }
+
+  Future<int> updateReport(ReportModel report) async {
+    Database db = await this.database;
+    var result = await db.update(rptTable, report.toMap(),
+        where: '$rptId =?', whereArgs: [report.id]);
+    return result;
+  }
+
+  Future<int> deleteReport(int id) async {
+    Database db = await this.database;
+    int result = await db.rawDelete('DELETE FROM $rptTable WHERE $rptId = $id');
+    return result;
+  }
+
+  Future<int> getReportCount() async {
+    Database db = await this.database;
+    List<Map<String, dynamic>> x =
+        await db.rawQuery('SELECT COUNT (*) from $rptTable');
+    int result = Sqflite.firstIntValue(x);
+    return result;
+  }
+
+  Future<List<ReportModel>> getReportList() async {
+    var reportMapList = await getReportMapList();
+    int count = reportMapList.length;
+    List<ReportModel> reportList = List<ReportModel>();
+    for (int i = 0; i < count; i++) {
+      reportList.add(ReportModel.fromMapOject(reportMapList[i]));
+    }
+    return reportList;
   }
 }

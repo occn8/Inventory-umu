@@ -25,7 +25,6 @@ class _InvDetailsState extends State<InvDetails> {
   static var _priorities = ['Good', 'Maintainance'];
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  // TextEditingController reportController = TextEditingController();
   String barcode = "";
 
   @override
@@ -79,21 +78,6 @@ class _InvDetailsState extends State<InvDetails> {
                   ),
                 ),
               ),
-              // Padding(
-              //   padding: EdgeInsets.symmetric(vertical: 10),
-              //   child: TextField(
-              //     maxLines: 4,
-              //     controller: reportController,
-              //     style: textStyle,
-              //     onChanged: (value) {},
-              //     decoration: InputDecoration(
-              //       labelText: 'Report',
-              //       labelStyle: textStyle,
-              //       border: OutlineInputBorder(
-              //           borderRadius: BorderRadius.circular(5)),
-              //     ),
-              //   ),
-              // ),
               ListTile(
                 leading: Text(
                   'Item Status: ',

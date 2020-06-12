@@ -7,11 +7,11 @@ class ReportModel {
   ReportModel.withId(this._id, this._writer, this._date, [this._reportTxt]);
 
   int get id => _id;
-  String get name => _writer;
+  String get writer => _writer;
   String get date => _date;
-  String get password => _reportTxt;
+  String get reportTxt => _reportTxt;
 
-  set name(String newTitle) {
+  set writer(String newTitle) {
     if (newTitle.length <= 255) {
       this._writer = newTitle;
     }
@@ -21,7 +21,7 @@ class ReportModel {
     this._date = newDate;
   }
 
-  set password(String newDescription) {
+  set reportTxt(String newDescription) {
     if (newDescription.length <= 255) {
       this._reportTxt = newDescription;
     }

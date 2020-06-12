@@ -13,7 +13,6 @@ class UserDetails extends StatefulWidget {
 
 class _UserDetailsState extends State<UserDetails> {
   DataBaseHelper helper2 = DataBaseHelper();
-
   String appBarTitle;
   UsersModel user;
   _UserDetailsState(this.appBarTitle, this.user);
@@ -23,14 +22,9 @@ class _UserDetailsState extends State<UserDetails> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = Theme.of(context).textTheme.subhead;
+    TextStyle textStyle = TextStyle(color: Colors.black);
     nameController.text = user.name;
     passwordController.text = user.password;
-    
-// return WillPopScope(
-//       onWillPop: () {
-//         moveToLastScreen();
-//       },
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -82,45 +76,46 @@ class _UserDetailsState extends State<UserDetails> {
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            color: Theme.of(context).primaryColor,
-                            child: Text(
-                              'Save',
-                              style: TextStyle(color: Colors.white),
-                              textScaleFactor: 1.5,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _save();
-                                print(passwordController);
-                              });
-                            }),
-                      ),
-                      SizedBox(width: 5),
-                      Expanded(
-                        child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            color: Theme.of(context).primaryColor,
-                            child: Text(
-                              'Cancel',
-                              style: TextStyle(color: Colors.white),
-                              textScaleFactor: 1.5,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                moveToLastScreen();
-                              });
-                            }),
-                      )
-                    ],
-                  )),
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          color: Theme.of(context).primaryColor,
+                          child: Text(
+                            'Save',
+                            style: TextStyle(color: Colors.white),
+                            textScaleFactor: 1.5,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _save();
+                              print(passwordController);
+                            });
+                          }),
+                    ),
+                    SizedBox(width: 5),
+                    Expanded(
+                      child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          color: Theme.of(context).primaryColor,
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(color: Colors.white),
+                            textScaleFactor: 1.5,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              moveToLastScreen();
+                            });
+                          }),
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),

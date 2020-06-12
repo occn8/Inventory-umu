@@ -12,7 +12,7 @@ class UsersView extends StatefulWidget {
 }
 
 class _UsersState extends State<UsersView> {
-  DataBaseHelper dataBaseHelper2 = DataBaseHelper();
+  DataBaseHelper dataBaseHelper = DataBaseHelper();
   List<UsersModel> userList;
   int count = 0;
   Icon _icon = Icon(Icons.fiber_manual_record, size: 8);
@@ -146,7 +146,7 @@ class _UsersState extends State<UsersView> {
   }
 
   void _delete(BuildContext context, UsersModel user) async {
-    int result = await dataBaseHelper2.deleteUser(user.id);
+    int result = await dataBaseHelper.deleteUser(user.id);
     if (result != 0) {
       // _showSnackBar(context, 'user removed');
       updateUserListView();
@@ -171,9 +171,9 @@ class _UsersState extends State<UsersView> {
   }
 
   void updateUserListView() {
-    final Future<Database> DbFuture = dataBaseHelper2.initializeDatabase();
+    final Future<Database> DbFuture = dataBaseHelper.initializeDatabase();
     DbFuture.then((database) {
-      Future<List<UsersModel>> userListFuture = dataBaseHelper2.getUserList();
+      Future<List<UsersModel>> userListFuture = dataBaseHelper.getUserList();
       userListFuture.then((userList) {
         setState(() {
           this.userList = userList;
